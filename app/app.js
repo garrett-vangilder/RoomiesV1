@@ -5,7 +5,7 @@ var app = angular.module("Roomies", ["ngRoute"]);
 app.config(function($routeProvider) {
   $routeProvider.
   when("/", {
-    templateUrl: "landing-page.html",
+    templateUrl: "partials/landing-page.html",
     controller: "LandingPageCtrl"
   }).
   when("/registerHome", {
