@@ -1,9 +1,9 @@
 "use strict";
 
-var app = angular.module("Roomies", ["ngRoute"]);
+var app = angular.module("Roomies", ["ngRoute"])
+.constant("FirebaseURL", "https://roomies-39f08.firebaseio.com");
 
 app.config(function($routeProvider) {
-  console.log("works")
   $routeProvider.
   when("/", {
     templateUrl: "partials/landing-page.html",
@@ -13,9 +13,9 @@ app.config(function($routeProvider) {
     templateUrl: "partials/register-home.html",
     controller: "NewHomeCtrl"
   }).
-  when("/profile/:homeid", {
-    templateUrl: "partials/home-profile.html",
-    controller: "HomeViewCtrl"
+  when("/registeruser", {
+    templateUrl: "partials/register-user.html",
+    controller: "NewHomeCtrl"
   }).
   when("/profile/:homeid", {
     templateUrl: "partials/home-tools.html",
@@ -40,5 +40,16 @@ app.config(function($routeProvider) {
   when("invite-housemate/:userid", {
     templateUrl: "partials/invite-housemate.html",
     controller: "NewHouseMateCtrl"
-  })
+  }).
+  otherwise("/");
+});
+
+app.run(function($location, FBCreds)  {
+  console.log("Run!?")
+  let creds = FBCreds;
+  let authConfig = {
+    apiKey: creds.apiKey,
+    authDomain: creds.authDomain
+  };
+  firebase.initializeApp(authConfig);
 });
