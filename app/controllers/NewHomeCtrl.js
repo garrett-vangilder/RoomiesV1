@@ -45,5 +45,21 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, HomeFactory
         houseName: $scope.homeInfo.houseName,
         houseMemberUid: AuthFactory.getUid()
       });
+    };
+
+    $scope.login = () => {
+      console.log("YOURE GOING TO LOGIN");
+      AuthFactory.loginUser($scope.account)
+
+      .then( (data) => {
+        if (data) {
+          HomeFactory.getUsersHome(AuthFactory.getUid());
+          $window.location.href= "#/profile/:homeid";
+        } else {
+          $window.location.href = "#/"
+        }
+      }, (error) => {
+        console.log("YOU HAVE AN ERROR");
+      })
     }
 });

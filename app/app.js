@@ -7,7 +7,7 @@ app.config(function($routeProvider) {
   $routeProvider.
   when("/", {
     templateUrl: "partials/landing-page.html",
-    controller: "LandingPageCtrl"
+    controller: "NewHomeCtrl"
   }).
   when("/registerhome", {
     templateUrl: "partials/register-home.html",
