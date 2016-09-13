@@ -2,6 +2,8 @@
 
 app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
 
+  let _houseid = null;
+
     let createHome = (homeItem) => {
         return $q((resolve, reject) => {
             $http.post(`${FirebaseURL}/homes.json`, JSON.stringify(homeItem))
@@ -18,12 +20,12 @@ app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
         return $q((resolve, reject) => {
             $http.get(`${FirebaseURL}/homes.json`)
                 .then((data) => {
-                  console.log(data);
                     let homeArray = convertResultsToArray(data.data, 'homeid', userID);
-                    console.log(homeArray)
                     let usersHome = filterArrayByID(homeArray, 'houseMemberUid', userID);
-                    console.log(usersHome);
-                    resolve(usersHome);
+                    console.log("usersHome", usersHome);
+                    _houseid = usersHome[0].homeid;
+                    console.log("_houseid", _houseid);
+                    resolve(usersHome, _houseid);
                 }, (error) => {
                     console.error(error);
                     reject(error);
@@ -46,11 +48,16 @@ app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
             return element[idType] === ID;
         })
         return filteredData;
+    };
+
+    let getHouseid = function() {
+      return _houseid;
     }
 
 
     return {
         createHome,
-        getUsersHome
+        getUsersHome,
+        getHouseid
     };
 });

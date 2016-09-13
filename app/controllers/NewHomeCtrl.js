@@ -1,4 +1,4 @@
-app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, HomeFactory) {
+app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParams, HomeFactory) {
     $scope.account = {
         email: "",
         password: ""
@@ -50,16 +50,17 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, HomeFactory
     $scope.login = () => {
       console.log("YOURE GOING TO LOGIN");
       AuthFactory.loginUser($scope.account)
-
       .then( (data) => {
         if (data) {
-          HomeFactory.getUsersHome(AuthFactory.getUid());
-          $window.location.href= "#/profile/:homeid";
+          HomeFactory.getUsersHome(AuthFactory.getUid())
+          .then( function() {
+            $window.location.href= `#/profile/${HomeFactory.getHouseid()}`;
+          });
         } else {
-          $window.location.href = "#/"
+          $window.location.href = "#/";
         }
       }, (error) => {
         console.log("YOU HAVE AN ERROR");
-      })
-    }
+      });
+    };
 });
