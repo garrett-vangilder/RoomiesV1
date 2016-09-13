@@ -3,42 +3,42 @@
 var app = angular.module("Roomies", ["ngRoute"]);
 
 app.config(function($routeProvider) {
+  console.log("works")
   $routeProvider.
   when("/", {
     templateUrl: "partials/landing-page.html",
     controller: "LandingPageCtrl"
   }).
-  when("/registerHome", {
-    templateUrl: "register-home.html",
+  when("/registerhome", {
+    templateUrl: "partials/register-home.html",
     controller: "NewHomeCtrl"
   }).
   when("/profile/:homeid", {
-    templateUrl: "home-profile.html",
+    templateUrl: "partials/home-profile.html",
     controller: "HomeViewCtrl"
   }).
-  when("/:homeid", {
-    templateUrl: "home-tools.html",
+  when("/profile/:homeid", {
+    templateUrl: "partials/home-tools.html",
     controller: "HomeToolCtrl"
   }).
   when("/grocerylist/:homeid", {
-    templateUrl: "grocery-list.html",
+    templateUrl: "partials/grocery-list.html",
     controller: "GroceryViewCtrl"
   }).
   when("budget/:homeid", {
-    templateUrl: "budget-list.html",
+    templateUrl: "partials/budget-list.html",
     controller: "BudgetViewCtrl"
   }).
   when("chores/:homeid", {
-    templateUrl: "chores-list.html",
+    templateUrl: "partials/chores-list.html",
     controller: "ChoresViewCtrl"
   }).
   when("messages/:userid", {
-    templateUrl: "message-list.html",
+    templateUrl: "partials/message-list.html",
     controller: "MessageViewCtrl"
   }).
   when("invite-housemate/:userid", {
-    templateUrl: "invite-housemate.html",
+    templateUrl: "partials/invite-housemate.html",
     controller: "NewHouseMateCtrl"
-  }).
-  otherwise('/');
+  })
 });
