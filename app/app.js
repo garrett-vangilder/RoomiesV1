@@ -13,6 +13,10 @@ app.config(function($routeProvider) {
     templateUrl: "partials/register-home.html",
     controller: "NewHomeCtrl"
   }).
+  when("/registeruser", {
+    templateUrl: "partials/register-user.html",
+    controller: "NewHomeCtrl"
+  }).
   when("/profile/:homeid", {
     templateUrl: "partials/home-tools.html",
     controller: "HomeToolCtrl"
