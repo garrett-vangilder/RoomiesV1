@@ -10,8 +10,9 @@
 
     </head>
     <body>
-        <div></div>
-        <div ng-view></div>
+      <div ng-include="'partials/nav-bar.html'"></div>
+      <h4>Hello</h4>
+      <div ng-view></div>
         <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="lib/bower_components/angular/angular.min.js"></script>
@@ -20,5 +21,24 @@
         <script type="text/javascript" src="lib/bower_components/angular-animate/angular-animate.min.js"></script>
         <script type="text/javascript" src="lib/bower_components/angular-aria/angular-aria.js"></script>
         <script type="text/javascript" src="lib/bower_components/angular-material/angular-material.min.js"></script>
+
+        <!-- APP  -->
+        <script type="text/javascript" src="app/app.js"></script>
+        <!-- factories -->
+
+        <!-- values -->
+
+        <!-- controllers -->
+        <script type="text/javascript" src="app/controllers/BudgetViewCtrl.js"></script>
+        <script type="text/javascript" src="app/controllers/ChoresViewCtrl.js"></script>
+        <script type="text/javascript" src="app/controllers/GroceryViewCtrl.js"></script>
+        <script type="text/javascript" src="app/controllers/HomeToolCtrl.js"></script>
+        <script type="text/javascript" src="app/controllers/HomeViewCtrl.js"></script>
+        <script type="text/javascript" src="app/controllers/LandingPageCtrl.js"></script>
+        <script type="text/javascript" src="app/controllers/MessageViewCtrl.js"></script>
+        <script type="text/javascript" src="app/controllers/NavBarCtrl.js"></script>
+        <script type="text/javascript" src="app/controllers/NewHomeCtrl.js"></script>
+        <script type="text/javascript" src="app/controllers/NewHouseMateCtrl.js"></script>
+
     </body>
 </html>
