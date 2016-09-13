@@ -1,0 +1,27 @@
+{
+  "name": "roomies",
+  "description": "a capstone project",
+  "main": "gruntfile.js",
+  "authors": [
+    "garrett vangilder garrett.vangilder@gmail.com"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/garrett-vangilder/roomies",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  "angular": "^1.5.7",
+  "angular-route": "^1.5.7",
+  "bootstrap": "^3.3.6",
+  "firebase": "^3.2.0",
+  "jquery": "^3.1.0",
+  "materialize": "^0.97.7",
+  "angular-material": "^1.1.1"
+
+}
+}
