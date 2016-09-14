@@ -1,0 +1,3 @@
+app.controller("GroceryViewCtrl", function() {
+
+});

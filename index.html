@@ -11,8 +11,7 @@
     </head>
     <body>
       <div ng-include="'partials/nav-bar.html'"></div>
-      <div ng-view></div>
-
+        <ng-view></ng-view>
 
         <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -25,13 +24,13 @@
 
         <!-- APP  -->
         <script type="text/javascript" src="app/app.js"></script>
-        <script type="text/javascript" src="app/values/fb-creds.js"></script>
 
         <!-- factories -->
         <script type="text/javascript" src="app/factories/AuthFactory.js"></script>
         <script type="text/javascript" src="app/factories/HomeFactory.js"></script>
 
         <!-- values -->
+        <script type="text/javascript" src="app/values/fb-creds.js"></script>
 
         <!-- controllers -->
         <script type="text/javascript" src="app/controllers/NavBarCtrl.js"></script>
