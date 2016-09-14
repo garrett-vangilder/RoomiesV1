@@ -1,6 +1,6 @@
 <div ng-init="getGroceryList()">
   <h4>Grocery List</h4>
-  <button class="btn" ng-click="addGrocery= true">Add Groceries</button>
+  <button class="btn" ng-click="addGrocery=true">Add Groceries</button>
   <div ng-show="addGrocery">
     <input type="text" placeholder="item name"  ng-model='newGroceryItem.name'/>
     <button class="btn" ng-click="addGroceryItem()">Submit Item</button>
@@ -8,11 +8,18 @@
   <div>
     <ul ng-repeat="item in groceryList">
       <li>
-        {{item.name}} <button>purchased</button>
+        {{item.name}} <button ng-click="buyGroceryItem(item.id)">purchased</button> <button ng-click="deleteItem(item.id)">X</button>
       </li>
     </ul>
   </div>
 </div>
 <div>
   <h4>Current Groceries</h4>
+  <div>
+    <ul ng-repeat="item in purchasedList">
+      <li>
+        {{item.name}} <button ng-click="buyGroceryItem(item.id)">purchased</button> <button ng-click="deleteItem(item.id)">X</button>
+      </li>
+    </ul>
+  </div>
 </div>

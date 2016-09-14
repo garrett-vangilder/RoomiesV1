@@ -2,26 +2,9 @@
 
 app.factory("GroceryFactory", function($q, $http, FBCreds, FirebaseURL) {
 
-  // let getGroceryList = (houseId) => {
-  //   return $q( (resolve, reject) => {
-  //     $http.get(`${FirebaseURL}/grocery.json`)
-  //     .then((data => {
-  //       console.log("data.data", data.data);
-  //       let groceryArray = convertResultsToArray(data.data, 'houseId', houseId);
-  //       console.log(groceryArray);
-  //       console.log("house id in GF", houseId)
-  //       let filteredGroceryArray = filterArrayByID(groceryArray, 'houseId', houseId);
-  //       resolve(filteredGroceryArray);
-  //       console.log("GF FGA", filteredGroceryArray)
-  //     }, (error) => {
-  //       console.log(error);
-  //       reject(error);
-  //     });
-  //   });
-  // };
-
   let getGroceryList = (houseId) => {
     let groceryList = [];
+    let ownedList = [];
     return $q( (resolve, reject) => {
       $http.get(`${FirebaseURL}/grocery.json?orderBy="houseId"&equalTo="${houseId}"`)
       .success( (groceryObj) => {
@@ -29,7 +12,7 @@ app.factory("GroceryFactory", function($q, $http, FBCreds, FirebaseURL) {
         Object.keys(groceryObj).forEach((key) => {
           groceryObj[key].id = key;
           groceryList.push(groceryObj[key]);
-        });
+        })
         resolve(groceryList);
       })
       .error( (error) => {
@@ -37,6 +20,8 @@ app.factory("GroceryFactory", function($q, $http, FBCreds, FirebaseURL) {
       });
     });
   };
+
+
 
   let newGroceryItem = (groceryObj) => {
     return $q( (resolve, reject) => {
@@ -49,21 +34,62 @@ app.factory("GroceryFactory", function($q, $http, FBCreds, FirebaseURL) {
     });
   };
 
-  let convertResultsToArray = (object, idType, uid) => {
-      let resultsArray = [];
-      let keysArray = Object.keys(object);
-      keysArray.forEach((key) => {
-          object[key][idType] = key;
-          resultsArray.push(object[key]);
+  let patchGroceryItem = (itemId, groceryObj) => {
+    return $q( (resolve, reject) => {
+      $http.patch(`${FirebaseURL}/grocery/${itemId}.json`, JSON.stringify(groceryObj))
+      .success( (ObjectFromFirebase) => {
+        resolve(ObjectFromFirebase);
+      })
+      .error( (error) => {
+        reject(error);
       });
-      return resultsArray;
+    });
   };
 
-  let filterArrayByID = (data, idType, ID) => {
+
+  let getSingleGroceryItem = (itemId) => {
+    return $q( (resolve, reject) => {
+      $http.get(`${FirebaseURL}/grocery/${itemId}.json`)
+      .success( (groceryObj) => {
+        resolve(groceryObj)
+      })
+      .error( (error) => {
+        reject(error);
+      });
+    });
+  };
+
+  let deleteGroceryItem = (itemId) => {
+    return $q( (resolve, reject) => {
+      $http.delete(`${FirebaseURL}/grocery/${itemId}.json`)
+      .success( (groceryObj) => {
+        resolve(groceryObj);
+      });
+    });
+  };
+
+  let filtergroceryList = (data, idType, ID) => {
       let filteredData = data.filter((element) => {
           return element[idType] === ID;
-      });
+      })
       return filteredData;
-  };
-  return {newGroceryItem, getGroceryList };
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  return {newGroceryItem, getGroceryList, getSingleGroceryItem, patchGroceryItem, deleteGroceryItem, filtergroceryList };
 });
