@@ -28,21 +28,22 @@ app.controller("ChoresViewCtrl", function($scope, $window, ChoresFactory,HomeFac
     });
   };
 
-  $scope.fakeChores = [
-    {
-      task: "Clean Cat Poop",
-      dueDate: "Daily",
-      assignedTo: "Garrett"
-    },
-    {
-      task: "Do Dishes",
-      dueDate: "Bi-daily",
-      assignedTo: "Dejan"
-    },
-    {
-      task: "Cut the Grass",
-      dueDate: "Weekly",
-      assignedTo: "Cody"
-    }
-  ]
+  $scope.completedTask =function(itemId) {
+    ChoresFactory.getSingleChoreItem(itemId).then( function(choreObj) {
+      console.log(choreObj)
+      choreObj.completed = true;
+      ChoresFactory.patchChoreItem(itemId, choreObj).then( function() {
+        $scope.getChoresList();
+      })
+    })
+  };
+
+  $scope.deleteItem = function(itemId) {
+    ChoresFactory.deleteChoreItem(itemId).then( function(choreObj) {
+      console.log(choreObj);
+      $scope.getChoresList();
+
+    })
+  };
+
 });

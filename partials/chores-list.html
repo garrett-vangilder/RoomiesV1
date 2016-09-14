@@ -10,7 +10,8 @@
   <div>
     <ul ng-repeat="item in chores">
       <li>
-        {{item.task}} due {{item.dueDate}}, {{item.assignedTo}} should complete this. <button ng-click="completedTask()">Finished?</button>
+        {{item.task}} due {{item.dueDate}}, {{item.assignedTo}} should complete this. <button ng-click="completedTask(item.id)">Finished?</button> <button ng-click="deleteItem(item.id)">X</button>
+
       </li>
     </ul>
   </div>

@@ -33,5 +33,43 @@ app.factory("ChoresFactory", function($q, $http, FBCreds, FirebaseURL) {
     });
   };
 
-return {getChoresList, newChore };
+
+
+  let getSingleChoreItem = (itemId) => {
+    return $q( (resolve, reject) => {
+      console.log(itemId);
+      $http.get(`${FirebaseURL}/chores/${itemId}.json`)
+      .success( (choreObj) =>{
+        resolve(choreObj)
+      })
+      .error( (error) => {
+        reject(error);
+      });
+    });
+  };
+
+
+
+  let patchChoreItem = (itemId, choreObj) => {
+    return $q( (resolve, reject) => {
+      $http.patch(`${FirebaseURL}/chores/${itemId}.json`, JSON.stringify(choreObj))
+      .success( (ObjectFromFirebase) => {
+        resolve(ObjectFromFirebase);
+      })
+      .error( (error) => {
+        reject(error);
+      });
+    });
+  };
+
+  let deleteChoreItem = (itemId) => {
+    return $q( (resolve, reject) => {
+      $http.delete(`${FirebaseURL}/chores/${itemId}.json`)
+      .success( (choreObj) => {
+        resolve(choreObj);
+      });
+    });
+  };
+
+return {getChoresList, newChore, patchChoreItem, getSingleChoreItem, deleteChoreItem };
 });
