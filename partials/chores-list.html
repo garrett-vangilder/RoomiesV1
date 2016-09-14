@@ -8,7 +8,7 @@
     <button ng-click="addChoreItem()">Submit</button>
   </div>
   <div>
-    <ul ng-repeat="item in chores">
+    <ul ng-repeat="item in chores" ng-class="item.completed === true ? 'completed' : 'not_completed'">
       <li>
         {{item.task}} due {{item.dueDate}}, {{item.assignedTo}} should complete this. <button ng-click="completedTask(item.id)">Finished?</button> <button ng-click="deleteItem(item.id)">X</button>
 
