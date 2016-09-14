@@ -1,3 +1,18 @@
-<div>
-  <h4>Chores List HTML</h4>
+<div ng-init="getChoresList()">
+  <h4>Chores List</h4>
+  <button ng-click="newTask=true">Add a Chore</button>
+  <div ng-show="newTask">
+    <input ng-model="newChoreItem.task" placeholder="task" />
+    <input ng-model="newChoreItem.dueDate" placeholder="due date" />
+    <input ng-model="newChoreItem.assignedTo" placeholder="assigned To" />
+    <button ng-click="addChoreItem()">Submit</button>
+  </div>
+  <div>
+    <ul ng-repeat="item in chores" ng-class="item.completed === true ? 'completed' : 'not_completed'">
+      <li>
+        {{item.task}} due {{item.dueDate}}, {{item.assignedTo}} should complete this. <button ng-click="completedTask(item.id)">Finished?</button> <button ng-click="deleteItem(item.id)">X</button>
+
+      </li>
+    </ul>
+  </div>
 </div>

@@ -8,7 +8,6 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
         }, {
             url: `#/chores/${HomeFactory.getHouseid()}`,
             name: "Chores"
-            // chores/:homeid
         }, {
             url: `#/budget/${HomeFactory.getHouseid()}`,
             name: "Budget"
