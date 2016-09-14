@@ -1,6 +1,6 @@
 "use strict";
 
-app.factory("AuthFactory", function($q) {
+app.factory("AuthFactory", function($q, $http, FirebaseURL) {
 
   let _uid = null;
   let _houseid = null;
@@ -14,6 +14,10 @@ app.factory("AuthFactory", function($q) {
   let getUid = function() {
     return _uid;
   };
+
+  let getHouseid = function() {
+    return _houseid;
+  }
 
   let createUser = function(userObj) {
     return firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
@@ -31,9 +35,11 @@ let loginUser = function(userObj) {
     });
 };
 
+
+
 let logoutUser = function() {
     return firebase.auth().signOut();
 };
 
-return {createUser, loginUser, logoutUser, getUid};
+return {createUser, loginUser, logoutUser, getUid, getHouseid};
 });
