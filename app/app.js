@@ -17,7 +17,7 @@ app.config(function($routeProvider) {
     templateUrl: "partials/register-user.html",
     controller: "NewHomeCtrl"
   }).
-  when("/profile/:homeid", {
+  when("/home-tools/:homeid", {
     templateUrl: "partials/home-tools.html",
     controller: "HomeToolCtrl"
   }).
@@ -25,21 +25,25 @@ app.config(function($routeProvider) {
     templateUrl: "partials/grocery-list.html",
     controller: "GroceryViewCtrl"
   }).
-  when("budget/:homeid", {
+  when("/budget/:homeid", {
     templateUrl: "partials/budget-list.html",
     controller: "BudgetViewCtrl"
   }).
-  when("chores/:homeid", {
+  when("/chores/:homeid", {
     templateUrl: "partials/chores-list.html",
     controller: "ChoresViewCtrl"
   }).
-  when("messages/:userid", {
+  when("/messages/:userid", {
     templateUrl: "partials/message-list.html",
     controller: "MessageViewCtrl"
   }).
-  when("invite-housemate/:userid", {
+  when("/invite-housemate/:userid", {
     templateUrl: "partials/invite-housemate.html",
     controller: "NewHouseMateCtrl"
+  }).
+  when("/info/:homeid", {
+    templateUrl: "partials/home-profile.html",
+    controller: "HomeProfileCtrl"
   }).
   otherwise("/");
 });

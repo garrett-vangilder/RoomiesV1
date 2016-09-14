@@ -1,3 +1,11 @@
 <div>
-  <h4>Home Tools HTML</h4>
+  <h4>Welcome to your Home Tool's page.</h4>
+  <div ng-repeat="button in homeTools">
+
+    <a ng-href='{{button.url}}'><button class="btn">{{button.name}}</button></a>
+    <!-- <a ng-href='#'><button class="btn">Budget</button></a>
+    <a ng-href='#'><button class="btn">Chore List</button></a>
+    <a ng-href='#'><button class="btn">Messages</button></a>
+    <a ng-href='#'><button class="btn">House Profile</button></a> --> -->
+  </div>
 </div>

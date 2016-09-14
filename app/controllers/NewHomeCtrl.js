@@ -54,7 +54,7 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
         if (data) {
           HomeFactory.getUsersHome(AuthFactory.getUid())
           .then( function() {
-            $window.location.href= `#/profile/${HomeFactory.getHouseid()}`;
+            $window.location.href= `#/home-tools/${HomeFactory.getHouseid()}`;
           });
         } else {
           $window.location.href = "#/";
