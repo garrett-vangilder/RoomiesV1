@@ -1,13 +1,22 @@
 app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParams, HomeFactory) {
+
+  $scope.newUserObj = {
+      "firstName": "",
+      "lastName": "",
+      "uid": "",
+      "email": "",
+      "password": ""
+  };
+
     $scope.account = {
-        email: "",
-        password: ""
+        "email": "",
+        "password": ""
     };
 
     $scope.homeInfo = {
-        address: "",
-        houseName: "",
-        houseMemberUid: ""
+        "address": "",
+        "houseName": "",
+        "houseMemberUid": ""
     };
 
     $scope.registerUser = () => {
@@ -18,13 +27,27 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
             userName: $scope.account.userName
         })
         .then((userData) => {
-            $scope.loginNewHome();
+          $scope.goMore = true;
         }, (error) => {
             console.log("Error Creating home and new User");
         });
     };
 
-    $scope.loginNewHome = () => {
+    $scope.createUserFb = () => {
+      AuthFactory.createUserFb({
+        "email": $scope.account.email,
+        "password": $scope.account.password,
+        "firstName": $scope.newUserObj.firstName,
+        "lastName": $scope.newUserObj.lastName,
+        "uid": AuthFactory.getUid()
+      }).then( function(userData) {
+        $scope.loginRegisteredUser();
+      })
+    };
+
+
+
+    $scope.loginRegisteredUser = () => {
         AuthFactory.loginUser($scope.account)
             .then((data) => {
                 if (data) {

@@ -25,7 +25,21 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
         let errorCode = error.code;
         let errorMessage = error.message;
       });
-  }
+  };
+
+  let createUserFb = function(userObj) {
+    return $q( (resolve, reject) => {
+      $http.post(`${FirebaseURL}/users.json`, userObj).then( (uid) => {
+        resolve(uid);
+      }), (error) => {
+        console.error(error);
+        reject(error);
+      }
+    });
+  };
+
+
+
 
 let loginUser = function(userObj) {
   return firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
@@ -41,5 +55,5 @@ let logoutUser = function() {
     return firebase.auth().signOut();
 };
 
-return {createUser, loginUser, logoutUser, getUid, getHouseid};
+return {createUser, loginUser, logoutUser, getUid, getHouseid, createUserFb};
 });
