@@ -39,6 +39,31 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
   };
 
 
+  let getSingleUser = (userId) => {
+    return $q( (resolve, reject) => {
+      $http.get(`${FirebaseURL}/users/${userId}.json`)
+      .success( (obj) => {
+        resolve(obj)
+      })
+      .error( (error) => {
+        reject(error);
+      });
+    });
+  };
+
+  let patchSingleUser = (itemId, obj) => {
+    return $q( (resolve, reject) => {
+      $http.patch(`${FirebaseURL}/users/${itemId}.json`, JSON.stringify(obj))
+      .success( (ObjectFromFirebase) => {
+        resolve(ObjectFromFirebase);
+      })
+      .error( (error) => {
+        reject(error);
+      })
+    })
+  };
+
+
 
 
 let loginUser = function(userObj) {
@@ -55,5 +80,5 @@ let logoutUser = function() {
     return firebase.auth().signOut();
 };
 
-return {createUser, loginUser, logoutUser, getUid, getHouseid, createUserFb};
+return {createUser, loginUser, logoutUser, getUid, getHouseid, createUserFb, getSingleUser, patchSingleUser};
 });

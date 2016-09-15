@@ -12,7 +12,7 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
         "password": ""
     };
 
-    $scope.homeInfo = {
+    $scope.homeItem = {
         "address": "",
         "houseName": "",
         "houseMemberUid": [],
@@ -20,7 +20,8 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
         "city": "",
         "state": "",
         "zipCode": "",
-        "password": ""
+        "password": "",
+        "homeid": ""
     };
 
     $scope.registerUser = () => {
@@ -28,7 +29,7 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
         AuthFactory.createUser({
                 email: $scope.account.email,
                 password: $scope.account.password,
-                userName: $scope.account.userName
+                userName: $scope.account.userName,
             })
             .then((userData) => {
                 $scope.goMore = true;
@@ -43,7 +44,8 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
             "password": $scope.account.password,
             "firstName": $scope.newUserObj.firstName,
             "lastName": $scope.newUserObj.lastName,
-            "uid": AuthFactory.getUid()
+            "uid": AuthFactory.getUid(),
+            'homeid': ''
         }).then(function(userData) {
             $scope.loginRegisteredUser();
         })
@@ -65,16 +67,24 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
     };
 
     $scope.registerNewHome = () => {
-        console.log("Register a new home with me. Hail Mary");
-        // $scope.homeInfo.houseMemberUid: AuthFactory.getUid();
+        let _uid = AuthFactory.getUid()
         HomeFactory.createHome({
-            "streetAddress": $scope.homeInfo.streetAddress,
-            "houseName": $scope.homeInfo.houseName,
+            "streetAddress": $scope.homeItem.streetAddress,
+            "houseName": $scope.homeItem.houseName,
             "houseMemberUid": [AuthFactory.getUid()],
-            "city": $scope.homeInfo.city,
-            "state": $scope.homeInfo.state,
-            "zipCode": $scope.homeInfo.zipCode,
-            "password": $scope.homeInfo.password
+            "city": $scope.homeItem.city,
+            "state": $scope.homeItem.state,
+            "zipCode": $scope.homeItem.zipCode,
+            "password": $scope.homeItem.password,
+            "homeid": ""
+        }).then(function(ObjectFromFirebase) {
+          HomeFactory.getSingleHome(ObjectFromFirebase.name).then(function(obj) {
+            let homeid = ObjectFromFirebase.name;
+            obj.homeid = homeid;
+            HomeFactory.patchHomeItem(ObjectFromFirebase.name, obj).then( function(obj2) {
+              console.log("object after homeId attached", obj2);
+            });
+          });
         });
     };
 
@@ -86,6 +96,7 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
             .then((data) => {
                 if (data) {
                     HomeFactory.getUsersHome(AuthFactory.getUid())
+                    console.log("Works")
                         .then(function() {
                             $window.location.href = `#/home-tools/${HomeFactory.getHouseid()}`;
                         });
@@ -99,25 +110,35 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
 });
 
 app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams, HomeFactory) {
+    let _uid = AuthFactory.getUid();
+
     $scope.homeSearch = {
         "zipCode": ""
     };
     $scope.homeList = [];
 
     $scope.searchByZip = (zipCode) => {
-         HomeFactory.searchByZip(zipCode).then( function(homeList) {
+        HomeFactory.searchByZip(zipCode).then(function(homeList) {
             $scope.homeList = homeList;
             console.log("$scope.homeList", $scope.homeList);
-        })
+        });
     };
 
-    // $scope.getGroceryList = function() {
-    //     GroceryFactory.getGroceryList(_homeid).then(function(filteredGroceryArray) {
-    //         $scope.purchasedList =   GroceryFactory.filtergroceryList(filteredGroceryArray, 'purchased', true);
-    //         console.log("purchasedlist", $scope.purchasedList)
-    //         $scope.groceryList = GroceryFactory.filtergroceryList(filteredGroceryArray, 'purchased', false);
-    //     });
-    // };
+    $scope.confirmHomeSearch = (itemId) => {
+        HomeFactory.getSingleHome(itemId).then(function(obj) {
+            obj.houseMemberUid.push(_uid);
+            HomeFactory.patchHomeItem(itemId, obj).then(function() {
+                AuthFactory.getSingleUser(_uid).then(function(obj2) {
+                    obj2.homeid = "itemId";
+                    AuthFactory.patchSingleUser(_uid, obj2).then(function() {
+                        console.log("obj2", obj2);
+                    });
+                });
+            });
+        });
+    };
+
+
 
 
 })
