@@ -1,11 +1,30 @@
-
-
 <div>
     <h4>REGISTER NEW HOME</h4>
     <h5>House Name:
         <input type="text" ng-model="homeInfo.houseName"/></h5>
-    <h5>Address:
-        <input type="text" ng-model="homeInfo.address"/></h5>
+    <h5>Street Address:
+        <input type="text" ng-model="homeInfo.streetAddress"/></h5>
+    <h5>City:
+        <input type="text" ng-model="homeInfo.city"/></h5>
+    <h5>State:
+        <input type="text" ng-model="homeInfo.state"/></h5>
+    <h5>Zip Code:
+        <input type="text" ng-model="homeInfo.zipCode"/></h5>
+    <h5>Password:
+        <input type="text" ng-model="homeInfo.password"/></h5>
 
     <button ng-click="registerNewHome()">Register Home</button>
+</div>
+
+<div ng-controller="SearchCtrl">
+    <h4>Search for Existing Home</h4>
+    <input type="text" ng-model="homeSearch.name" placeholder="zip code"/>
+    <button>Search</button>
+    <div ng-repeat="house in homelist">
+        <div>
+            <h3>{{house.houseName}}</h3>
+            <h3>{{house.address}}</h3>
+            <button>Confirm House</button>
+        </div>
+    </div>
 </div>

@@ -1,5 +1,4 @@
 app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParams, HomeFactory) {
-
   $scope.newUserObj = {
       "firstName": "",
       "lastName": "",
@@ -16,7 +15,12 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
     $scope.homeInfo = {
         "address": "",
         "houseName": "",
-        "houseMemberUid": ""
+        "houseMemberUid": "",
+        "streetAddress": "",
+        "city": "",
+        "state": "",
+        "zipCode": "",
+        "password": ""
     };
 
     $scope.registerUser = () => {
@@ -64,11 +68,17 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
       console.log("Register a new home with me. Hail Mary");
       // $scope.homeInfo.houseMemberUid: AuthFactory.getUid();
       HomeFactory.createHome({
-        address: $scope.homeInfo.address,
-        houseName: $scope.homeInfo.houseName,
-        houseMemberUid: AuthFactory.getUid()
+        "streetAddress": $scope.homeInfo.streetAddress,
+        "houseName": $scope.homeInfo.houseName,
+        "houseMemberUid": AuthFactory.getUid(),
+        "city": $scope.homeInfo.city,
+        "state": $scope.homeInfo.state,
+        "zipCode": $scope.homeInfo.zipCode,
+        "password": $scope.homeInfo.password
       });
     };
+
+
 
     $scope.login = () => {
       console.log("YOURE GOING TO LOGIN");
@@ -87,3 +97,9 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
       });
     };
 });
+
+app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams, HomeFactory) {
+  $scope.homeSearch = {
+    "name": ""
+  };
+})
