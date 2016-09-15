@@ -1,3 +1,13 @@
 <div>
-  <h4>Budget List HTML</h4>
+  <h4>Budget List</h4>
+  <button ng-click="addingBudgetItem = true">Add Budget Item</button>
+  <div ng-show="addingBudgetItem">
+    <input ng-model="newBudgetName" placeholder="Due to Whom" />
+    <input ng-model="newBudgetDate" placeholder="Due Date" />
+    <input ng-model="newBudgetAmount" placeholder="Amount" />
+    <button>Submit</button>
+  </div>
+  <div>
+    <h4>Current Budget</h4>
+  </div>
 </div>
