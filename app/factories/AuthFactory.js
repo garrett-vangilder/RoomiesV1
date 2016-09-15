@@ -38,17 +38,34 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
     });
   };
 
+  // let pinArray = convertResultsToArray(data.data,'pinid',userID);
+  // let filteredPinArray = filterArrayByID(pinArray,'uid',userID);
+
 
   let getSingleUser = (userId) => {
+    let singleUser = [];
+    let filteredUser = [];
     return $q( (resolve, reject) => {
       $http.get(`${FirebaseURL}/users.json?orderBy="uid"&equalTo="${userId}"`)
       .success( (obj) => {
-        resolve(obj)
+        Object.keys(obj).forEach( (key) => {
+          obj[key].id = key;
+          singleUser.push(obj[key]);
+        })
+        filteredUser = filterArrayByID(singleUser, "uid", userId)
+        resolve(filteredUser);
       })
       .error( (error) => {
         reject(error);
       });
     });
+  };
+
+  let filterArrayByID = (data, idType, ID) => {
+      let filteredData = data.filter((element) => {
+          return element[idType] === ID;
+      })
+      return filteredData;
   };
 
 

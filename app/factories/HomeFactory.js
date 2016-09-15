@@ -8,6 +8,7 @@ app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
         return $q((resolve, reject) => {
             $http.post(`${FirebaseURL}/homes.json`, JSON.stringify(homeItem))
                 .success((ObjectFromFirebase) => {
+                    
                     resolve(ObjectFromFirebase);
                 })
                 .error((error) => {

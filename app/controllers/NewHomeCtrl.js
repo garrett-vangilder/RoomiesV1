@@ -45,7 +45,7 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
             "firstName": $scope.newUserObj.firstName,
             "lastName": $scope.newUserObj.lastName,
             "uid": AuthFactory.getUid(),
-            'homeid': ''
+            'homeid': 'FAKE'
         }).then(function(userData) {
             $scope.loginRegisteredUser();
         })
@@ -76,25 +76,36 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
             "state": $scope.homeItem.state,
             "zipCode": $scope.homeItem.zipCode,
             "password": $scope.homeItem.password,
-            "homeid": ""
+            "homeid": "FAKE"
         }).then(function(ObjectFromFirebase) {
           HomeFactory.getSingleHome(ObjectFromFirebase.name).then(function(obj) {
             let homeid = ObjectFromFirebase.name;
             obj.homeid = homeid;
             HomeFactory.patchHomeItem(ObjectFromFirebase.name, obj).then( function(obj2) {
               console.log("object after homeId attached", obj2);
-              AuthFactory.getSingleUser(AuthFactory.getUid()).then( function(obj) {
-                console.log("obj", obj)
-              })
+              $scope.assignHometoUser(AuthFactory.getUid(), ObjectFromFirebase.name);
+              // AuthFactory.getSingleUser(AuthFactory.getUid()).then( function(obj3) {
+              //   console.log("Got single user", obj3);
+                // obj3.homeid = ObjectFromFirebase.name;
+                // AuthFactory.patchSingleUser(obj3.uid, ob3).then(function(ObjectFromFirebase2) {
+                //   console.log("final user obj", ObjectFromFirebase2);
+                // })
+              // })
             })
           });
         });
     };
 
-  //   $scope.assignHometoUser = function(userID) {
-  //     let user = AuthFactory.getSingleUser(userID).then(function() {
-  //     })
-  // }
+    $scope.assignHometoUser = function(userID, homeId) {
+      let user = AuthFactory.getSingleUser(userID).then(function(user) {
+        console.log("user ", user);
+        console.log("user homeid", user[0].homeid);
+        user[0].homeid = homeId;
+        AuthFactory.patchSingleUser(userID, user[0]).then(function(newObj) {
+          console.log("Final User item", newObj);
+        })
+      })
+  }
 
 
 
