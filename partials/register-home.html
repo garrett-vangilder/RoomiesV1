@@ -18,8 +18,8 @@
 
 <div ng-controller="SearchCtrl">
     <h4>Search for Existing Home</h4>
-    <input type="text" ng-model="homeSearch.name" placeholder="zip code"/>
-    <button>Search</button>
+    <input type="text" ng-model="homeSearch.zipCode" placeholder="zip code"/>
+    <button ng-click="searchByZip(homeSearch.zipCode)">Search</button>
     <div ng-repeat="house in homelist">
         <div>
             <h3>{{house.houseName}}</h3>

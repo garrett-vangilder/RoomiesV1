@@ -100,6 +100,13 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
 
 app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams, HomeFactory) {
   $scope.homeSearch = {
-    "name": ""
+    "zipCode": ""
   };
+
+  $scope.searchByZip = (zipCode) => {
+    HomeFactory.searchByZip(zipCode)
+    .then( (data) => {
+      console.log(data);
+    });
+  }
 })

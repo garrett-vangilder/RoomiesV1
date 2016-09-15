@@ -33,6 +33,24 @@ app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
         });
     };
 
+    let searchByZip = (zip) => {
+      let homeList = [];
+      return $q( (resolve, reject) => {
+        $http.get(`${FirebaseURL}/homes.json?orderBy="zipCode"&equalTo="${zip}"`)
+        .success( (homeObj) => {
+          console.log("homeObj is currently", homeObj);
+          Object.keys(homeObj).forEach( (key) => {
+            homeObj[key].id = key;
+            homeList.push(homeObj[key]);
+          })
+          resolve(homeList);
+        })
+        .error( (error) => {
+          reject(error);
+        });
+      });
+    };
+
     let convertResultsToArray = (object, idType, uid) => {
         let resultsArray = [];
         let keysArray = Object.keys(object);
@@ -58,6 +76,7 @@ app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
     return {
         createHome,
         getUsersHome,
-        getHouseid
+        getHouseid,
+        searchByZip
     };
 });
