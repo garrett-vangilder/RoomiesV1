@@ -20,10 +20,15 @@
     <h4>Search for Existing Home</h4>
     <input type="text" ng-model="homeSearch.zipCode" placeholder="zip code"/>
     <button ng-click="searchByZip(homeSearch.zipCode)">Search</button>
-    <div ng-repeat="house in homelist">
-        <div>
+        <div ng-repeat="house in homeList">
             <h3>{{house.houseName}}</h3>
-            <h3>{{house.address}}</h3>
+            <h3>{{house.streetAddress}}</h3>
+            <button>Confirm House</button>
+        </div>
+    <div>
+        <div>
+            <h3>Fake Home</h3>
+            <h3>Fake Address</h3>
             <button>Confirm House</button>
         </div>
     </div>
