@@ -41,7 +41,7 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
 
   let getSingleUser = (userId) => {
     return $q( (resolve, reject) => {
-      $http.get(`${FirebaseURL}/users/${userId}.json`)
+      $http.get(`${FirebaseURL}/users.json?orderBy="uid"&equalTo="${userId}"`)
       .success( (obj) => {
         resolve(obj)
       })
@@ -50,6 +50,7 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
       });
     });
   };
+
 
   let patchSingleUser = (itemId, obj) => {
     return $q( (resolve, reject) => {

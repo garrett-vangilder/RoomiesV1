@@ -83,10 +83,20 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
             obj.homeid = homeid;
             HomeFactory.patchHomeItem(ObjectFromFirebase.name, obj).then( function(obj2) {
               console.log("object after homeId attached", obj2);
-            });
+              AuthFactory.getSingleUser(AuthFactory.getUid()).then( function(obj) {
+                console.log("obj", obj)
+              })
+            })
           });
         });
     };
+
+  //   $scope.assignHometoUser = function(userID) {
+  //     let user = AuthFactory.getSingleUser(userID).then(function() {
+  //     })
+  // }
+
+
 
 
 

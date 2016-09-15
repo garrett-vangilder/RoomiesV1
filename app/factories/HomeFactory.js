@@ -15,14 +15,14 @@ app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
                 });
         });
     };
-
     let getUsersHome = (userID) => {
         return $q((resolve, reject) => {
-            $http.get(`${FirebaseURL}/homes.json`)
+            $http.get(`${FirebaseURL}/homes/$orderBy="houseMemberUid"&equalTo="${userID}".json`)
                 .then((data) => {
-                    let homeArray = convertResultsToArray(data.data, 'homeid', userID);
-                    console.log("homeArray in HF", homeArray);
-                    let usersHome = filterArrayByID(homeArray, 'houseMemberUid.key', userID);
+                  console.log(data);
+                    // let homeArray = convertResultsToArray(data.data, 'homeid', userID);
+                    // console.log("homeArray in HF", homeArray);
+                    // let usersHome = filterArrayByID(homeArray, 'houseMemberUid.key', userID);
                     console.log("usersHome in HF", usersHome);
                     _houseid = usersHome[0].homeid;
                     resolve(usersHome, _houseid);
@@ -31,18 +31,6 @@ app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
                     reject(error);
                 });
         });
-    };
-
-    let patchGroceryItem = (itemId, groceryObj) => {
-      return $q( (resolve, reject) => {
-        $http.patch(`${FirebaseURL}/grocery/${itemId}.json`, JSON.stringify(groceryObj))
-        .success( (ObjectFromFirebase) => {
-          resolve(ObjectFromFirebase);
-        })
-        .error( (error) => {
-          reject(error);
-        });
-      });
     };
 
     let patchHomeItem = (itemId, obj) => {
