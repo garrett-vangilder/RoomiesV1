@@ -78,7 +78,6 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
     };
 
     $scope.registerNewHome = () => {
-
         let _uid = AuthFactory.getUid();
         HomeFactory.createHome({
             "streetAddress": $scope.homeItem.streetAddress,
@@ -156,15 +155,24 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
         });
     };
 
-    $scope.confirmHomeSearch = (itemId) => {
-        HomeFactory.getSingleHome(itemId).then(function(obj) {
-            obj.houseMemberUid.push(_uid);
-            HomeFactory.patchHomeItem(itemId, obj).then(function() {
-                AuthFactory.getSingleUser(_uid).then(function(obj2) {
-                    obj2.homeid = "itemId";
-                    AuthFactory.patchSingleUser(_uid, obj2).then(function() {});
-                });
+
+    $scope.confirmHomeSearch = function(homeId) {
+      let _uid = AuthFactory.getUid();
+      console.log("user id", _uid);
+        console.log("assigning the home to the user need homeId", homeId);
+        let user = AuthFactory.getSingleUser(_uid).then(function(user) {
+            console.log('user before being patched', user);
+            user[0].homeid = homeId;
+            console.log("user[0].homeid after homeId is assigned", user[0].homeid);
+            AuthFactory.patchSingleUser(_uid, user[0]).then(function(newObj) {
+                if (newObj) {
+                    console.log("new object after home is assigned to user", newObj);
+                    $window.location.href = `#/home-tools/${newObj.homeid}`;
+                } else {
+                    $window.location.href = `#/`;
+                }
             });
         });
     };
+
 });

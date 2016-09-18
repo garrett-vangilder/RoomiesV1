@@ -2,7 +2,7 @@
 
 app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeFactory, $window, $location) {
 
-    $scope.homeId = HomeFactory.getUsersHome().then(console.log("home id?", $scope.homeId));
+    // $scope.homeId = HomeFactory.getUsersHome().then(console.log("home id?", $scope.homeId));
 
     $scope.homeTools = [{
             url: `#/grocerylist/${AuthFactory.getHouseid()}`,
