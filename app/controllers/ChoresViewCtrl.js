@@ -1,5 +1,5 @@
-app.controller("ChoresViewCtrl", function($scope, $window, ChoresFactory,HomeFactory, AuthFactory) {
-  let _homeid = HomeFactory.getHouseid();
+app.controller("ChoresViewCtrl", function($scope, $window,$routeParams, ChoresFactory,HomeFactory, AuthFactory) {
+  let _homeid = $routeParams.homeid;
   let _uid = AuthFactory.getUid();
 
   $scope.newChoreItem = {
@@ -21,10 +21,6 @@ app.controller("ChoresViewCtrl", function($scope, $window, ChoresFactory,HomeFac
   $scope.getChoresList = function() {
     ChoresFactory.getChoresList(_homeid).then( function(filteredChoresArray) {
       $scope.chores = filteredChoresArray;
-      // console.log("chores", chores);
-      // $scope.completedList = ChoresFactory.filterchoresList(filteredChoresArray, 'completed', true);
-      // console.log('completed list', $scope.completedList);
-      // $scope.choresList = GroceryFactory.filterchoresList(filteredChoresArray, 'completed', false)
     });
   };
 
