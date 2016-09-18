@@ -1,3 +1,20 @@
-<div>
-  <h4>Message List HTML</h4>
+<div ng-init="getUserMessages()">
+  <h4>Message's for User's Name </h4>
+  <button ng-click="name()"> Who am i?</button>
+  <div class="tableChat">
+    <div>
+      <h4>Keith</h4>
+      <div>
+        This is an area for Keiths Message
+      </div>
+      <h4>user's name</h4>
+      <div>
+        This is an area for the user's message
+      </div>
+    </div>
+    <div class="areaForInput">
+      <input ng-model='newMessage.contents' placeholder="what would you like to say?" /><button ng-click="postNewMessage()">Submit</button>
+
+    </div>
+  </div>
 </div>

@@ -8,7 +8,7 @@ app.controller("ChoresViewCtrl", function($scope, $window, ChoresFactory,HomeFac
     "assignedTo": "",
     "uid": _uid,
     "houseId": _homeid,
-    "completed": false,
+    "completed": false
   };
 
   $scope.addChoreItem = function() {

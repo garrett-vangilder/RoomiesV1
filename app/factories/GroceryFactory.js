@@ -75,21 +75,5 @@ app.factory("GroceryFactory", function($q, $http, FBCreds, FirebaseURL) {
       return filteredData;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   return {newGroceryItem, getGroceryList, getSingleGroceryItem, patchGroceryItem, deleteGroceryItem, filtergroceryList };
 });
