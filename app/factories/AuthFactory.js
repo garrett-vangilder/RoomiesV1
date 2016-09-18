@@ -2,98 +2,131 @@
 
 app.factory("AuthFactory", function($q, $http, FirebaseURL) {
 
-  let _uid = null;
-  let _houseid = null;
-
-  firebase.auth().onAuthStateChanged(function (user) {
-    _uid = user.uid;
-    _houseid = user.houseid;
-  });
-
-  let getUid = function() {
-    return _uid;
-  };
-
-  let getHouseid = function() {
-    return _houseid;
-  }
-
-  let createUser = function(userObj) {
-    return firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
-      .catch( function(error) {
-        let errorCode = error.code;
-        let errorMessage = error.message;
-      });
-  };
-
-  let createUserFb = function(userObj) {
-    return $q( (resolve, reject) => {
-      $http.post(`${FirebaseURL}/users.json`, userObj).then( (uid) => {
-        console.log('uid from createUserFb', uid.data.name);
-        resolve(uid);
-      }), (error) => {
-        console.error(error);
-        reject(error);
-      }
-    });
-  };
-
-
-  let getSingleUser = (userId) => {
+    let _uid = null;
+    let _houseid = null;
     let singleUser = [];
     let filteredUser = [];
-    return $q( (resolve, reject) => {
-      $http.get(`${FirebaseURL}/users.json?orderBy="uid"&equalTo="${userId}"`)
-      .success( (obj) => {
-        Object.keys(obj).forEach( (key) => {
-          obj[key].id = key;
-          singleUser.push(obj[key]);
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        _uid = user.uid;
+        _houseid = user.houseid;
+    });
+
+    let getUid = function() {
+        return _uid;
+    };
+
+    let getHouseid = function() {
+        return _houseid;
+    }
+
+    let createUser = function(userObj) {
+        console.log('creating user via FB')
+        return firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
+            .catch(function(error) {
+                let errorCode = error.code;
+                let errorMessage = error.message;
+            });
+    };
+
+    let createUserFb = function(userObj) {
+        console.log("creating user via fake FB")
+        return $q((resolve, reject) => {
+            $http.post(`${FirebaseURL}/users.json`, userObj).then((uid) => {
+                resolve(uid);
+            }), (error) => {
+                console.error(error);
+                reject(error);
+            }
+        });
+    };
+
+    let getSingleUser = (userId) => {
+        return $q((resolve, reject) => {
+            $http.get(`${FirebaseURL}/users.json?orderBy="uid"&equalTo="${userId}"`)
+                .success((obj) => {
+                    Object.keys(obj).forEach((key) => {
+                        obj[key].id = key;
+                        singleUser.push(obj[key]);
+                    })
+                    filteredUser = filterArrayByID(singleUser, "uid", userId)
+                    resolve(filteredUser);
+                })
+                .error((error) => {
+                    reject(error);
+                });
+        });
+    };
+
+
+    let getSingleUserForLogin = (userId) => {
+        return $q((resolve, reject) => {
+            $http.get(`${FirebaseURL}/users.json?orderBy="uid"&equalTo="${userId}"`)
+                .success((obj) => {
+                    Object.keys(obj).forEach((key) => {
+                        obj[key].id = key;
+                        singleUser.push(obj[key]);
+                    })
+                    filteredUser = filterArrayByID(singleUser,"id", userId)
+                    console.log('second filteredUser', filteredUser)
+                    resolve(filteredUser);
+                })
+                .error((error) => {
+                    reject(error);
+                });
+        });
+    };
+
+
+
+    let filterArrayByID = (data, idType, ID) => {
+        let filteredData = data.filter((element) => {
+            return element[idType] === ID;
         })
-        filteredUser = filterArrayByID(singleUser, "uid", userId)
-        resolve(filteredUser);
-      })
-      .error( (error) => {
-        reject(error);
-      });
-    });
-  };
-
-  let filterArrayByID = (data, idType, ID) => {
-      let filteredData = data.filter((element) => {
-          return element[idType] === ID;
-      })
-      return filteredData;
-  };
+        return filteredData;
+    };
 
 
-  let patchSingleUser = (itemId, obj) => {
-    return $q( (resolve, reject) => {
-      $http.put(`${FirebaseURL}/users/${itemId}.json`, JSON.stringify(obj))
-      .success( (ObjectFromFirebase) => {
-        resolve(ObjectFromFirebase);
-      })
-      .error( (error) => {
-        reject(error);
-      })
-    })
-  };
+    let patchSingleUser = (itemId, obj) => {
+        console.log("patching single user")
+        return $q((resolve, reject) => {
+            $http.put(`${FirebaseURL}/users/${itemId}.json`, JSON.stringify(obj))
+                .success((ObjectFromFirebase) => {
+                    resolve(ObjectFromFirebase);
+                })
+                .error((error) => {
+                    reject(error);
+                })
+        })
+    };
 
 
 
 
-let loginUser = function(userObj) {
-  return firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
-    .catch(function(error) {
-      let errorCode = error.code;
-      let errorMessage = error.message;
-    });
-};
+    let loginUser = function(userObj) {
+        console.log('logging in single user');
+        return firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
+            .catch(function(error) {
+                let errorCode = error.code;
+                let errorMessage = error.message;
+            });
+    };
 
 
 
-let logoutUser = function() {
-    return firebase.auth().signOut();
-};
+    let logoutUser = function() {
+        return firebase.auth().signOut();
+    };
 
-return {createUser, loginUser, logoutUser, getUid, getHouseid, createUserFb, getSingleUser, patchSingleUser};
+    return {
+        createUser,
+        loginUser,
+        logoutUser,
+        getUid,
+        getHouseid,
+        createUserFb,
+        getSingleUser,
+        patchSingleUser,
+        getSingleUserForLogin
+    };
 });
