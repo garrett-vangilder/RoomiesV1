@@ -31,20 +31,21 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
                 password: $scope.account.password
             })
             .then((userData) => {
-                $scope.createUserFb();
+              console.log("userdata after FB made, before We make", userData);
+                $scope.createUserFb(userData);
             }, (error) => {
                 console.log("Error Creating home and new User");
             });
     };
 
-    $scope.createUserFb = () => {
+    $scope.createUserFb = (userData) => {
         console.log("creating user on Firebase")
         AuthFactory.createUserFb({
             "email": $scope.account.email,
             "password": $scope.account.password,
             "firstName": $scope.newUserObj.firstName,
             "lastName": $scope.newUserObj.lastName,
-            "uid": AuthFactory.getUid(),
+            "uid": userData.uid,
             'homeid': null
         }).then(function(userData) {
             $scope.loginRegisteredUser();
