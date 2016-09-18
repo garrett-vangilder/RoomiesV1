@@ -8,7 +8,7 @@ app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
         return $q((resolve, reject) => {
             $http.post(`${FirebaseURL}/homes.json`, JSON.stringify(homeItem))
                 .success((ObjectFromFirebase) => {
-                    
+
                     resolve(ObjectFromFirebase);
                 })
                 .error((error) => {
@@ -18,21 +18,23 @@ app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
     };
     let getUsersHome = (userID) => {
         return $q((resolve, reject) => {
-            $http.get(`${FirebaseURL}/homes/$orderBy="houseMemberUid"&equalTo="${userID}".json`)
+            $http.get(`${FirebaseURL}/user/${userID}.json`)
                 .then((data) => {
-                  console.log(data);
+                  console.log("data from FB", data);
                     // let homeArray = convertResultsToArray(data.data, 'homeid', userID);
-                    // console.log("homeArray in HF", homeArray);
-                    // let usersHome = filterArrayByID(homeArray, 'houseMemberUid.key', userID);
-                    console.log("usersHome in HF", usersHome);
-                    _houseid = usersHome[0].homeid;
-                    resolve(usersHome, _houseid);
+                    // // let usersHome = filterArrayByID(homeArray, 'houseMemberUid', userID);
+                    // console.log("usersHome", usersHome);
+                    // _houseid = usersHome[0].homeid;
+                    // console.log("_houseid", _houseid);
+                    resolve(data);
                 }, (error) => {
                     console.error(error);
                     reject(error);
                 });
         });
     };
+
+
 
     let patchHomeItem = (itemId, obj) => {
       return $q( (resolve, reject) => {

@@ -7,8 +7,11 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
 
   firebase.auth().onAuthStateChanged(function (user) {
     console.log('Auth State has changed');
+    console.log("user item in auth state", user);
     _uid = user.uid;
+    _houseid = user.houseid;
     console.log("uid is now", _uid);
+    console.log("_houseid is now", _houseid);
   });
 
   let getUid = function() {
@@ -37,9 +40,6 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
       }
     });
   };
-
-  // let pinArray = convertResultsToArray(data.data,'pinid',userID);
-  // let filteredPinArray = filterArrayByID(pinArray,'uid',userID);
 
 
   let getSingleUser = (userId) => {
@@ -71,7 +71,7 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
 
   let patchSingleUser = (itemId, obj) => {
     return $q( (resolve, reject) => {
-      $http.patch(`${FirebaseURL}/users/${itemId}.json`, JSON.stringify(obj))
+      $http.put(`${FirebaseURL}/users/${itemId}.json`, JSON.stringify(obj))
       .success( (ObjectFromFirebase) => {
         resolve(ObjectFromFirebase);
       })

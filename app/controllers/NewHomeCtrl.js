@@ -25,27 +25,27 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
     };
 
     $scope.registerUser = () => {
-        console.log("register with me. Hail Mary!");
+        console.log("Register user");
         AuthFactory.createUser({
                 email: $scope.account.email,
-                password: $scope.account.password,
-                userName: $scope.account.userName,
+                password: $scope.account.password
             })
             .then((userData) => {
-                $scope.goMore = true;
+                $scope.createUserFb();
             }, (error) => {
                 console.log("Error Creating home and new User");
             });
     };
 
     $scope.createUserFb = () => {
+        console.log("creating user on Firebase")
         AuthFactory.createUserFb({
             "email": $scope.account.email,
             "password": $scope.account.password,
             "firstName": $scope.newUserObj.firstName,
             "lastName": $scope.newUserObj.lastName,
             "uid": AuthFactory.getUid(),
-            'homeid': 'FAKE'
+            'homeid': null
         }).then(function(userData) {
             $scope.loginRegisteredUser();
         })
@@ -54,6 +54,7 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
 
 
     $scope.loginRegisteredUser = () => {
+        console.log("loging in registered user to register their home")
         AuthFactory.loginUser($scope.account)
             .then((data) => {
                 if (data) {
@@ -67,7 +68,7 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
     };
 
     $scope.registerNewHome = () => {
-        let _uid = AuthFactory.getUid()
+        let _uid = AuthFactory.getUid();
         HomeFactory.createHome({
             "streetAddress": $scope.homeItem.streetAddress,
             "houseName": $scope.homeItem.houseName,
@@ -76,50 +77,49 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
             "state": $scope.homeItem.state,
             "zipCode": $scope.homeItem.zipCode,
             "password": $scope.homeItem.password,
-            "homeid": "FAKE"
+            "homeid": ""
         }).then(function(ObjectFromFirebase) {
           HomeFactory.getSingleHome(ObjectFromFirebase.name).then(function(obj) {
             let homeid = ObjectFromFirebase.name;
             obj.homeid = homeid;
             HomeFactory.patchHomeItem(ObjectFromFirebase.name, obj).then( function(obj2) {
-              console.log("object after homeId attached", obj2);
-              $scope.assignHometoUser(AuthFactory.getUid(), ObjectFromFirebase.name);
-              // AuthFactory.getSingleUser(AuthFactory.getUid()).then( function(obj3) {
-              //   console.log("Got single user", obj3);
-                // obj3.homeid = ObjectFromFirebase.name;
-                // AuthFactory.patchSingleUser(obj3.uid, ob3).then(function(ObjectFromFirebase2) {
-                //   console.log("final user obj", ObjectFromFirebase2);
-                // })
-              // })
-            })
+              $scope.assignHometoUser(AuthFactory.getUid(), ObjectFromFirebase.name).then( function(obj3) {
+                console.log('assigning the home to the user, sending user to the house tools');
+              })
+              });
+            });
           });
-        });
-    };
+        };
 
     $scope.assignHometoUser = function(userID, homeId) {
+      console.log("assigning the home to the user")
       let user = AuthFactory.getSingleUser(userID).then(function(user) {
-        console.log("user ", user);
-        console.log("user homeid", user[0].homeid);
+        console.log('user before being patched', user);
         user[0].homeid = homeId;
         AuthFactory.patchSingleUser(userID, user[0]).then(function(newObj) {
-          console.log("Final User item", newObj);
-        })
-      })
-  }
+          if(newObj) {
+              console.log("new object after home is assigned to user", newObj);
+              $window.location.href = `#/home-tools/${newObj.homeid}`;
+          } else {
+            $window.location.href = `#/`;
+          }
+        });
+      });
+  };
 
 
 
 
 
     $scope.login = () => {
-        console.log("YOURE GOING TO LOGIN");
         AuthFactory.loginUser($scope.account)
             .then((data) => {
                 if (data) {
-                    HomeFactory.getUsersHome(AuthFactory.getUid())
-                    console.log("Works")
+                    AuthFactory.getSingleUser(data.uid).then(function(filteredUser) {
+                      console.log("Works", filteredUser);
+                    })
                         .then(function() {
-                            $window.location.href = `#/home-tools/${HomeFactory.getHouseid()}`;
+                            $window.location.href = `#/home-tools/${AuthFactory.getHouseid()}`;
                         });
                 } else {
                     $window.location.href = "#/";
@@ -141,7 +141,6 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
     $scope.searchByZip = (zipCode) => {
         HomeFactory.searchByZip(zipCode).then(function(homeList) {
             $scope.homeList = homeList;
-            console.log("$scope.homeList", $scope.homeList);
         });
     };
 
@@ -152,14 +151,9 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
                 AuthFactory.getSingleUser(_uid).then(function(obj2) {
                     obj2.homeid = "itemId";
                     AuthFactory.patchSingleUser(_uid, obj2).then(function() {
-                        console.log("obj2", obj2);
                     });
                 });
             });
         });
     };
-
-
-
-
-})
+});

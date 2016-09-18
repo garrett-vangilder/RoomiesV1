@@ -2,14 +2,16 @@
 
 app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeFactory, $window, $location) {
 
+    $scope.homeId = HomeFactory.getUsersHome().then(console.log("home id?", $scope.homeId));
+
     $scope.homeTools = [{
-            url: `#/grocerylist/${HomeFactory.getHouseid()}`,
+            url: `#/grocerylist/${AuthFactory.getHouseid()}`,
             name: "Grocery List"
         }, {
-            url: `#/chores/${HomeFactory.getHouseid()}`,
+            url: `#/chores/${AuthFactory.getHouseid()}`,
             name: "Chores"
         }, {
-            url: `#/budget/${HomeFactory.getHouseid()}`,
+            url: `#/budget/${AuthFactory.getHouseid()}`,
             name: "Budget"
         }, {
             url: `#/invite-housemate/${AuthFactory.getUid()}`,
@@ -19,7 +21,7 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
             name: "Messages"
         },
         {
-            url: `#/info/${HomeFactory.getHouseid()}`,
+            url: `#/info/${AuthFactory.getHouseid()}`,
             name: "Profile"
         },
     ];
