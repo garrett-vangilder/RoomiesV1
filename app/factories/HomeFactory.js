@@ -76,6 +76,7 @@ app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
         });
       });
     };
+    
 
     let convertResultsToArray = (object, idType, uid) => {
         let resultsArray = [];

@@ -112,13 +112,11 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
         AuthFactory.loginUser($scope.account)
             .then((data) => {
                 if (data) {
-                    console.log('data before getting single user', data);
                     AuthFactory.getSingleUserForLogin(data.uid).then(function(filteredUser) {
                         console.log(filteredUser[0].homeid, "filteredUser");
                         let homeid = filteredUser[0].homeid;
-                        console.log('homeid is ', homeid);
                         $window.location.href = `#/home-tools/${homeid}`;
-                    })
+                    });
                 } else {
                     $window.location.href = "#/";
                 }
@@ -160,8 +158,5 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
             });
         });
     };
-
-
-
 
 });
