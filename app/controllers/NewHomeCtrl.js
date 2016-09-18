@@ -66,7 +66,7 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
             }, (error) => {
                 console.log("You have an error");
             });
-            return $scope.uid;
+        return $scope.uid;
     };
 
     $scope.registerNewHome = () => {
@@ -85,8 +85,7 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
                 let homeid = ObjectFromFirebase.name;
                 obj.homeid = homeid;
                 HomeFactory.patchHomeItem(ObjectFromFirebase.name, obj).then(function(obj2) {
-                    $scope.assignHometoUser(AuthFactory.getUid(), ObjectFromFirebase.name).then(function(obj3) {
-                    });
+                    $scope.assignHometoUser(AuthFactory.getUid(), ObjectFromFirebase.name).then(function(obj3) {});
                 });
             });
         });
@@ -113,12 +112,13 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
         AuthFactory.loginUser($scope.account)
             .then((data) => {
                 if (data) {
+                    console.log('data before getting single user', data);
                     AuthFactory.getSingleUserForLogin(data.uid).then(function(filteredUser) {
-                      
-                        })
-                        .then(function() {
-                            $window.location.href = `#/home-tools/${AuthFactory.getHouseid()}`;
-                        });
+                        console.log(filteredUser[0].homeid, "filteredUser");
+                        let homeid = filteredUser[0].homeid;
+                        console.log('homeid is ', homeid);
+                        $window.location.href = `#/home-tools/${homeid}`;
+                    })
                 } else {
                     $window.location.href = "#/";
                 }
@@ -144,13 +144,12 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
 
 
     $scope.confirmHomeSearch = function(homeId) {
-      let _uid = AuthFactory.getUid();
+        let _uid = AuthFactory.getUid();
         let user = AuthFactory.getSingleUser(_uid).then(function(user) {
             user[0].homeid = homeId;
             HomeFactory.getSingleHome(homeId).then(function(singleHomeObj) {
-              singleHomeObj.houseMemberUid.push(_uid);
-              HomeFactory.patchHomeItem(homeId, singleHomeObj).then(function(newHome) {
-              });
+                singleHomeObj.houseMemberUid.push(_uid);
+                HomeFactory.patchHomeItem(homeId, singleHomeObj).then(function(newHome) {});
             });
             AuthFactory.patchSingleUser(_uid, user[0]).then(function(newObj) {
                 if (newObj) {

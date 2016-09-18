@@ -67,9 +67,7 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
                         obj[key].id = key;
                         singleUser.push(obj[key]);
                     })
-                    filteredUser = filterArrayByID(singleUser, "uid", userId)
-                    console.log('filteredUser', filteredUser);
-                    filteredUser = filterArrayByID(filteredUser,"id", userId)
+                    filteredUser = filterArrayByID(singleUser,"id", userId)
                     console.log('second filteredUser', filteredUser)
                     resolve(filteredUser);
                 })
