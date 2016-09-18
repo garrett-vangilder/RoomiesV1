@@ -164,6 +164,12 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
             console.log('user before being patched', user);
             user[0].homeid = homeId;
             console.log("user[0].homeid after homeId is assigned", user[0].homeid);
+            HomeFactory.getSingleHome(homeId).then(function(singleHomeObj) {
+              singleHomeObj.houseMemberUid.push(_uid);
+              HomeFactory.patchHomeItem(homeId, singleHomeObj).then(function(newHome) {
+                console.log("newHome after it has been patched", newHome);
+              })
+            });
             AuthFactory.patchSingleUser(_uid, user[0]).then(function(newObj) {
                 if (newObj) {
                     console.log("new object after home is assigned to user", newObj);
@@ -174,5 +180,20 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
             });
         });
     };
+
+
+//     $scope.confirmHomeSearch = (itemId) => {
+//     HomeFactory.getSingleHome(itemId).then(function(obj) {
+//         obj.houseMemberUid.push(_uid);
+//         HomeFactory.patchHomeItem(itemId, obj).then(function() {
+//             AuthFactory.getSingleUser(_uid).then(function(obj2) {
+//                 obj2.homeid = "itemId";
+//                 AuthFactory.patchSingleUser(_uid, obj2).then(function() {
+//                     console.log("obj2", obj2);
+//                 });
+//             });
+//         });
+//     });
+// };
 
 });
