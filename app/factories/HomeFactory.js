@@ -8,6 +8,7 @@ app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
         return $q((resolve, reject) => {
             $http.post(`${FirebaseURL}/homes.json`, JSON.stringify(homeItem))
                 .success((ObjectFromFirebase) => {
+
                     resolve(ObjectFromFirebase);
                 })
                 .error((error) => {
@@ -15,22 +16,65 @@ app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
                 });
         });
     };
-
     let getUsersHome = (userID) => {
         return $q((resolve, reject) => {
-            $http.get(`${FirebaseURL}/homes.json`)
+            $http.get(`${FirebaseURL}/user/${userID}.json`)
                 .then((data) => {
-                    let homeArray = convertResultsToArray(data.data, 'homeid', userID);
-                    let usersHome = filterArrayByID(homeArray, 'houseMemberUid', userID);
-                    console.log("usersHome", usersHome);
-                    _houseid = usersHome[0].homeid;
-                    console.log("_houseid", _houseid);
-                    resolve(usersHome, _houseid);
+                  console.log("data from FB", data);
+                    // let homeArray = convertResultsToArray(data.data, 'homeid', userID);
+                    // // let usersHome = filterArrayByID(homeArray, 'houseMemberUid', userID);
+                    // console.log("usersHome", usersHome);
+                    // _houseid = usersHome[0].homeid;
+                    // console.log("_houseid", _houseid);
+                    resolve(data);
                 }, (error) => {
                     console.error(error);
                     reject(error);
                 });
         });
+    };
+
+
+
+    let patchHomeItem = (itemId, obj) => {
+      return $q( (resolve, reject) => {
+        $http.patch(`${FirebaseURL}/homes/${itemId}.json`, JSON.stringify(obj))
+        .success( (ObjectFromFirebase) => {
+          resolve(ObjectFromFirebase);
+        })
+        .error( (error) => {
+          reject(error);
+        })
+      })
+    };
+
+    let getSingleHome = (itemId) => {
+      return $q( (resolve, reject) => {
+        $http.get(`${FirebaseURL}/homes/${itemId}.json`)
+        .success( (obj) => {
+          resolve(obj)
+        })
+        .error( (error) => {
+          reject(error);
+        });
+      });
+    };
+
+    let searchByZip = (zip) => {
+      let homeList = [];
+      return $q( (resolve, reject) => {
+        $http.get(`${FirebaseURL}/homes.json?orderBy="zipCode"&equalTo="${zip}"`)
+        .success( (homeObj) => {
+          Object.keys(homeObj).forEach( (key) => {
+            homeObj[key].id = key;
+            homeList.push(homeObj[key]);
+          })
+          resolve(homeList);
+        })
+        .error( (error) => {
+          reject(error);
+        });
+      });
     };
 
     let convertResultsToArray = (object, idType, uid) => {
@@ -58,6 +102,9 @@ app.factory("HomeFactory", ($q, $http, FirebaseURL) => {
     return {
         createHome,
         getUsersHome,
-        getHouseid
+        getHouseid,
+        searchByZip,
+        patchHomeItem,
+        getSingleHome
     };
 });

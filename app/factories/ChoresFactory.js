@@ -3,7 +3,6 @@
 app.factory("ChoresFactory", function($q, $http, FBCreds, FirebaseURL) {
 
 
-
   let newChore = (choreObj) => {
     return $q( (resolve, reject) => {
       $http.post(`${FirebaseURL}/chores.json`, choreObj).then( (choreID) => {
