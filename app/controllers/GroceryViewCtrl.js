@@ -1,6 +1,6 @@
-app.controller("GroceryViewCtrl", function($scope, $window, GroceryFactory, HomeFactory, AuthFactory) {
+app.controller("GroceryViewCtrl", function($scope, $window, GroceryFactory, $routeParams, HomeFactory, AuthFactory) {
 
-    let _homeid = HomeFactory.getHouseid();
+    let _homeid = $routeParams.homeid;
     let _uid = AuthFactory.getUid();
     let filteredGroceryArray = [];
     let ownedGroceryList = []
