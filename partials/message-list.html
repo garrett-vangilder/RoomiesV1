@@ -1,13 +1,12 @@
 <div ng-init="getUserMessages()" >
   <h4>Message's for User's Name </h4>
-  <button ng-click="name()"> Who am i?</button>
   <div class="tableChat">
-    <div ng-repeat="message in messages| ">
+    <div ng-repeat="message in messages|orderBy: 'postDate' ">
       <h4>{{message.authorName}}</h4>
       <div>
         {{message.contents}}
         <p>
-          {{message.postDate}}
+          {{message.postDate | date : "MMM d, y h:mm:ss a"}}
         </p>
       </div>
 
