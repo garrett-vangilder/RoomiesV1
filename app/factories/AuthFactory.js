@@ -7,10 +7,10 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
     let singleUser = [];
     let filteredUser = [];
     let filteredHome = '';
+    let filteredName = '';
 
     firebase.auth().onAuthStateChanged(function(user) {
         _uid = user.uid;
-        _houseid = user.houseid;
     });
 
     let getUid = function() {
@@ -68,8 +68,8 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
             singleUser.push(obj[key]);
           });
           filteredUser = filterArrayByID(singleUser, "id", userId);
-          console.log("should happen on login want to see what you get back", filteredUser[0].firstName);
-          resolve(filteredUser.name);
+          filteredName = filteredUser[0].firstName;
+          resolve(filteredName);
         })
         .error((error) => {
           reject(error);
