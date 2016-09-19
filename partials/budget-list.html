@@ -39,7 +39,11 @@
         <h4>This Month's Expenses</h4>
         <div ng-repeat="expense in expenseItems">
             <div>
-              {{expense.amount}}
+              Paid to:{{expense.paidTo}}
+              Amount: {{expense.amount}}
+              Category: {{expense.categoryName}}
+              <button>Edit</button>
+              <button ng-click="deleteExpenseItem(expense.id)">Delete</button>
             </div>
         </div>
     </div>

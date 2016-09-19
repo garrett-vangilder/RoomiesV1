@@ -119,12 +119,25 @@ app.factory("BudgetFactory", function($q, $http, FBCreds, FirebaseURL) {
 
 
     let getSingleExpenseItem = (itemId) => {
-
-    }
+      return $q( (resolve, reject) => {
+        $http.get(`${FirebaseURL}/expense/${itemId}.json`)
+        .success( (expenseObj) => {
+          resolve(expenseObj)
+        })
+        .error( (error) => {
+          reject(error);
+        });
+      });
+    };
 
     let deleteExpenseItem = (itemId) => {
-
-    }
+      return $q( (resolve, reject) => {
+        $http.delete(`${FirebaseURL}/expense/${itemId}.json`)
+        .success( (expenseObj) => {
+          resolve(expenseObj)
+        });
+      });
+    };
 
 
     return {
