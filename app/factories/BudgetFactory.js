@@ -95,24 +95,28 @@ app.factory("BudgetFactory", function($q, $http, FBCreds, FirebaseURL) {
       })
     };
 
-    // let newBudgetItem = (budgetObj) => {
-    //   return $q((resolve, reject) => {
-    //     $http.post(`${FirebaseURL}/budget.json`, budgetObj).then( (budgetID) => {
-    //       resolve(budgetID);
-    //     }), (error) => {
-    //       console.error(error)
-    //       reject(error);
-    //     }
-    //   });
-    // };
-
     let updateExpenseItem = (itemId) => {
 
     }
 
     let getExpenseList = (houseId) => {
-
+      let expenseList = [];
+      return $q( (resolve, reject) => {
+        $http.get(`${FirebaseURL}/expense.json?orderBy="houseId"&equalTo="${houseId}"`)
+        .success( (expenseObj) => {
+          console.log("this is the expenseObj", expenseObj)
+          Object.keys(expenseObj).forEach( (key) => {
+            expenseObj[key].id = key;
+            expenseList.push(expenseObj[key]);
+          })
+          resolve(expenseList)
+        })
+        .error( (error) => {
+          reject(error);
+        })
+      })
     }
+
 
     let getSingleExpenseItem = (itemId) => {
 

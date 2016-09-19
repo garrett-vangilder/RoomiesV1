@@ -18,7 +18,8 @@ app.controller("BudgetViewCtrl", function($scope, $window, $routeParams, BudgetF
       "amount": null,
       "notes": "",
       "categoryId": "",
-      "categoryName": ""
+      "categoryName": "",
+      "houseId": _homeid
     };
 
     $scope.selectedExpenseItem = {
@@ -71,7 +72,7 @@ app.controller("BudgetViewCtrl", function($scope, $window, $routeParams, BudgetF
             budgetObj.currentAmountSpent = budgetObj.currentAmountSpent + $scope.newExpenseItem.amount
             BudgetFactory.updateBudgetItem($scope.newExpenseItem.categoryId, budgetObj).then(function(newObj) {
               $scope.getBudgetList();
-              $scope.getExpenseList();    
+              $scope.getExpenseList();
             })
           })
         });
@@ -80,8 +81,8 @@ app.controller("BudgetViewCtrl", function($scope, $window, $routeParams, BudgetF
 
     $scope.getExpenseList = function() {
       BudgetFactory.getExpenseList(_homeid).then( function(filteredExpenseArray) {
-        $scope.expenseItems = filteredExpenseArray;
-      });
+         $scope.expenseItems = filteredExpenseArray;
+       });
     };
 
 
