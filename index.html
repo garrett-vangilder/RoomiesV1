@@ -10,8 +10,10 @@
 
     </head>
     <body>
-      <div ng-include="'partials/nav-bar.html'"></div>
+      <div ng-controller="TopCtrl">
+        <div ng-include="'partials/nav-bar.html'"></div>
         <ng-view></ng-view>
+      </div>
 
         <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -37,6 +39,7 @@
         <script type="text/javascript" src="app/values/fb-creds.js"></script>
 
         <!-- controllers -->
+        <script type="text/javascript" src="app/controllers/TopCtrl.js"></script>
         <script type="text/javascript" src="app/controllers/NavBarCtrl.js"></script>
         <script type="text/javascript" src="app/controllers/BudgetViewCtrl.js"></script>
         <script type="text/javascript" src="app/controllers/ChoresViewCtrl.js"></script>
