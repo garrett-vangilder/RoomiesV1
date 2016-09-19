@@ -1,13 +1,23 @@
 <div>
   <h4>Budget List</h4>
   <button ng-click="addingBudgetItem = true">Add Budget Item</button>
+  <button ng-click="addingExpense = true">Add an Expense</button>
   <div ng-show="addingBudgetItem">
-    <input ng-model="newBudgetName" placeholder="Due to Whom" />
-    <input ng-model="newBudgetDate" placeholder="Due Date" />
-    <input ng-model="newBudgetAmount" placeholder="Amount" />
+    <input ng-model="newBudgetItem.name" placeholder="Spending Category" />
+    <input ng-model="newBudgetItem.amout" placeholder="Amount" />
+    <button>Submit</button>
+  </div>
+  <div ng-show="addingExpense">
+    <input ng-model="newExpenseItem.name" placeholder="Paid to whome?" />
+    <input ng-model="newExpenseItem.amount" placeholder="Amount Paid" />
+    <input ng-model="newExpenseItem.paidDate" placeholder="Date" />
+    <input ng-model="newExpenseItem.category" placeholder="Category" />
     <button>Submit</button>
   </div>
   <div>
     <h4>Current Budget</h4>
+  </div>
+  <div>
+    <h4>This Month's Expenses</h4>
   </div>
 </div>
