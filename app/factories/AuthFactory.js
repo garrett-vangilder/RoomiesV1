@@ -6,6 +6,7 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
     let _houseid = null;
     let singleUser = [];
     let filteredUser = [];
+    let filteredHome = '';
 
     firebase.auth().onAuthStateChanged(function(user) {
         _uid = user.uid;
@@ -56,6 +57,43 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
                     reject(error);
                 });
         });
+    };
+
+    let getUsersFirstName = (userId) => {
+      return $q((resolve, reject) => {
+        $http.get(`${FirebaseURL}/users.json?orderBy="uid"&equalTo="${userId}"`)
+        .success((obj) => {
+          Object.keys(obj).forEach((key) => {
+            obj[key].id = key;
+            singleUser.push(obj[key]);
+          });
+          filteredUser = filterArrayByID(singleUser, "id", userId);
+          console.log("should happen on login want to see what you get back", filteredUser[0].firstName);
+          resolve(filteredUser.name);
+        })
+        .error((error) => {
+          reject(error);
+        });
+      });
+    };
+
+    let getUsersHomeId = (userId) => {
+      return $q((resolve, reject) => {
+        $http.get(`${FirebaseURL}/users.json?orderBy="uid"&equalTo="${userId}"`)
+        .success((obj) => {
+          Object.keys(obj).forEach((key) => {
+            obj[key].id = key;
+            singleUser.push(obj[key]);
+          });
+          filteredUser = filterArrayByID(singleUser, "id", userId);
+          filteredHome = filteredUser[0].homeid
+          console.log("should happen on login want to see what you get back", filteredHome);
+          resolve(filteredHome);
+        })
+        .error((error) => {
+          reject(error);
+        });
+      });
     };
 
 
@@ -127,6 +165,8 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
         createUserFb,
         getSingleUser,
         patchSingleUser,
-        getSingleUserForLogin
+        getSingleUserForLogin,
+        getUsersFirstName,
+        getUsersHomeId
     };
 });
