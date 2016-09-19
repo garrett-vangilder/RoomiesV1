@@ -39,10 +39,21 @@
         <h4>This Month's Expenses</h4>
         <div ng-repeat="expense in expenseItems">
             <div>
+              <div ng-if="isEditExpense">
+                <input ng-model="selectedExpenseItem.paidTo" placeholder="{{expense.paidTo}}" />
+                <input ng-model="selectedExpenseItem.amount" placeholder="{{expense.amount}}" />
+                <!-- <input ng-model="selectedExpenseItem.paidDate" placeholder="{{expense.paidDate}}" />
+                <input ng-model="selectedExpenseItem.notes" placeholder="{{expense.notes}}" />
+                <div ng-repeat="category in budgetItems">
+                    <input ng-model="selectedExpenseItem.categoryId" value="{{category.id}}" name="group2" type="radio" id="{{category.id}}edit"/>
+                    <label for="{{category.id}}edit">{{category.categoryName}}</label>
+                </div> -->
+                <button ng-click="editExpenseItem(expense.id)">Submit</button>
+              </div>
               Paid to:{{expense.paidTo}}
               Amount: {{expense.amount}}
               Category: {{expense.categoryName}}
-              <button>Edit</button>
+              <button ng-click="isEditExpense=true">Edit</button>
               <button ng-click="deleteExpenseItem(expense.id)">Delete</button>
             </div>
         </div>

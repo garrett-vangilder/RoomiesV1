@@ -95,9 +95,18 @@ app.factory("BudgetFactory", function($q, $http, FBCreds, FirebaseURL) {
       })
     };
 
-    let updateExpenseItem = (itemId) => {
+    let updateExpenseItem = (itemId, expenseObj) => {
+      return $q( (resolve, reject) => {
+        $http.patch(`${FirebaseURL}/expense/${itemId}.json`, JSON.stringify(expenseObj))
+        .success( (ObjectFromFirebase) => {
+          resolve(ObjectFromFirebase)
+        })
+        .error( (error) => {
+          reject(error)
+        });
+      });
+    };
 
-    }
 
     let getExpenseList = (houseId) => {
       let expenseList = [];
