@@ -16,9 +16,9 @@ app.controller("BudgetViewCtrl", function($scope, $window, $routeParams, BudgetF
     $scope.newExpenseItem = {
       "paidTo": "",
       "amount": null,
-      "dateDue": "",
-      "category": "",
-      "notes": ""
+      "notes": "",
+      "categoryId": "",
+      "categoryName": ""
     };
 
     $scope.selectedExpenseItem = {
@@ -56,12 +56,28 @@ app.controller("BudgetViewCtrl", function($scope, $window, $routeParams, BudgetF
       })
     }
 
-
     $scope.getBudgetList = function() {
       BudgetFactory.getBudgetList(_homeid).then( function(filteredBudgetArray) {
         $scope.budgetItems = filteredBudgetArray;
       })
     }
+
+    $scope.addExpenseItem = function() {
+      BudgetFactory.getSingleBudgetName($scope.newExpenseItem.categoryId).then(function(budgetName) {
+        console.log("the budget name should come through", budgetName);
+        $scope.newExpenseItem.categoryName = budgetName;
+        BudgetFactory.newExpenseItem($scope.newExpenseItem).then(function() {
+          $scope.getBudgetList();
+          $scope.getExpenseList();
+        });
+      });
+    };
+
+    $scope.getExpenseList = function() {
+      BudgetFactory.getExpenseList(_homeid).then( function(filteredExpenseArray) {
+        $scope.expenseItems = filteredExpenseArray;
+      });
+    };
 
 
 });

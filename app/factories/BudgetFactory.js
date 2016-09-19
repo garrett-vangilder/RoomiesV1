@@ -66,13 +66,45 @@ app.factory("BudgetFactory", function($q, $http, FBCreds, FirebaseURL) {
       })
     }
 
+    let getSingleBudgetName = (itemId) => {
+      let budgetName = ""
+      return $q( (resolve, reject) => {
+        $http.get(`${FirebaseURL}/budget/${itemId}.json`)
+        .success( (budgetObj) => {
+          budgetName = budgetObj.categoryName
+          resolve(budgetName);
+        })
+        .error( (error) => {
+          reject(error);
+        });
+      });
+    };
+
     let clearExpenseMonthly = (houseId) => {
 
     }
 
-    let newExpenseItem = (houseId) => {
-
+    let newExpenseItem = (expenseObj) => {
+      return $q( (resolve, reject) => {
+        $http.post(`${FirebaseURL}/expense.json`, expenseObj).then( (expenseID) => {
+          resolve(expenseID);
+        }), (error) => {
+          console.error(error)
+          reject(error)
+        }
+      })
     };
+
+    // let newBudgetItem = (budgetObj) => {
+    //   return $q((resolve, reject) => {
+    //     $http.post(`${FirebaseURL}/budget.json`, budgetObj).then( (budgetID) => {
+    //       resolve(budgetID);
+    //     }), (error) => {
+    //       console.error(error)
+    //       reject(error);
+    //     }
+    //   });
+    // };
 
     let updateExpenseItem = (itemId) => {
 
@@ -97,6 +129,7 @@ app.factory("BudgetFactory", function($q, $http, FBCreds, FirebaseURL) {
         updateBudgetItem,
         getBudgetList,
         getSingleBudgetItem,
+        getSingleBudgetName,
         clearExpenseMonthly,
         newExpenseItem,
         updateExpenseItem,
