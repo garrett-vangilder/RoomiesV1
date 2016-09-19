@@ -2,16 +2,18 @@
 
 app.factory("MessageFactory", function($q, $http, FBCreds, FirebaseURL) {
 
-  let getMessageList = (houseId) => {
+  let getList = (houseId) => {
+    console.log("getting list");
     let messageList = [];
-    return( (resolve, reject) => {
+    return $q( (resolve, reject) => {
       $http.get(`${FirebaseURL}/message.json?orderBy="houseId"&equalTo="${houseId}"`)
       .success( (messageObj) => {
-        Object.keys(messageObj).forEach((key) => {
+        console.log("messageObj before loop", messageObj);
+        Object.keys(messageObj).forEach( (key) => {
           messageObj[key].id = key;
           messageList.push(messageObj[key]);
-        });
-        resolve(messageList)
+        })
+        resolve(messageList);
       })
       .error( (error) => {
         reject(error);
@@ -30,6 +32,6 @@ app.factory("MessageFactory", function($q, $http, FBCreds, FirebaseURL) {
     });
   };
 
-  return {getMessageList, submitMessage};
+  return {getList, submitMessage};
 
 });

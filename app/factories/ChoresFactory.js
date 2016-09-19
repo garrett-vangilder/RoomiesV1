@@ -13,6 +13,7 @@ app.factory("ChoresFactory", function($q, $http, FBCreds, FirebaseURL) {
       }
     });
   };
+  
 
   let getChoresList = (houseId) => {
     let choresList = [];
