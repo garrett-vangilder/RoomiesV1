@@ -2,6 +2,8 @@
   <h4>Message's for User's Name </h4>
   <div class="tableChat">
     <div ng-repeat="message in messages|orderBy: 'postDate' ">
+      <div ng-class="{'active' : ( userIdx  == message.uid)}">
+
       <h4>{{message.authorName}}</h4>
       <div>
         {{message.contents}}
@@ -9,6 +11,7 @@
           {{message.postDate | date : "MMM d, y h:mm:ss a"}}
         </p>
       </div>
+    </div>
 
     </div>
     <div class="areaForInput">

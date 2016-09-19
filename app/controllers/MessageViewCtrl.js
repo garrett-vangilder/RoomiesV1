@@ -1,5 +1,6 @@
 app.controller("MessageViewCtrl", function($scope, $window, $routeParams, MessageFactory, HomeFactory, AuthFactory) {
             let _uid = $routeParams.userid;
+            $scope.userIdx = _uid;
             let _houseid = "";
             let messageList = [];
 
