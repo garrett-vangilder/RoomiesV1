@@ -11,16 +11,21 @@
     <input ng-model="newExpenseItem.name" placeholder="Paid to whome?" />
     <input ng-model="newExpenseItem.amount" placeholder="Amount Paid" />
     <input ng-model="newExpenseItem.paidDate" placeholder="Date" />
-    <input ng-model="newExpenseItem.category" placeholder="Category" />
+    <input type="radio" ng-model="newExpenseItem.category" placeholder="Category" />
     <button>Submit</button>
   </div>
   <div>
     <h4>Current Budget</h4>
     <div ng-repeat="category in budgetItems">
+      <div ng-if="isEdit">
+        <input ng-model="selectedBudgetItem.categoryName" placeholder="{{category.categoryName}}" />
+        <input ng-model="selectedBudgetItem.amount" placeholder="{{category.amount}}" />
+        <button ng-click="editBudgetItem(category.id)">Submit</button>
+      </div>
       {{category.categoryName}}
       $ {{category.amount}}
-      <button>edit</button>
-      <button>Delete</button>
+      <button ng-click="isEdit=true">edit</button>
+      <button ng-click="deleteBudgetItem(category.id)">Delete</button>
     </div>
   </div>
   <div>
