@@ -95,26 +95,6 @@ app.controller("BudgetViewCtrl", function($scope, $window, $routeParams, BudgetF
         });
     };
 
-    // $scope.editExpenseItem = function(itemId) {
-    //   BudgetFactory.getSingleExpenseItem(itemId).then(function(expenseObj) {
-    //     console.log("the expense obj ready for edit", expenseObj)
-    //     expenseObj.paidTo =  $scope.selectedExpenseItem.paidTo
-    //     expenseObj.amount =  $scope.selectedExpenseItem.amount
-    //     expenseObj.categoryName =  $scope.selectedExpenseItem.categoryName
-    //     expenseObj.categoryId =  $scope.selectedExpenseItem.categoryId
-    //     BudgetFactory.updateExpenseItem(itemId, expenseObj).then(function(newObj) {
-    //       BudgetFactory.getSingleBudgetItem($scope.selectedExpenseItem.categoryId).then(function(budgetObj) {
-    //         console.log('budget obj returned after an edit', budgetObj)
-    //         budgetObj.currentAmountSpent = budgetObj.currentAmountSpent - expenseObj.amount;
-    //         BudgetFactory.updateBudgetItem(expenseObj.categoryId, budgetObj).then(function() {
-    //           $scope.getBudgetList();
-    //           $scope.getExpenseList();
-    //         });
-    //       })
-    //     });
-    //   });
-    // };
-
     $scope.editExpenseItem = function(itemId) {
       BudgetFactory.getSingleExpenseItem(itemId).then(function(expenseObj) {
         console.log("single item returned", expenseObj)
