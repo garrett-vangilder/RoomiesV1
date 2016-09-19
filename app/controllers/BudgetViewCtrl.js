@@ -67,8 +67,13 @@ app.controller("BudgetViewCtrl", function($scope, $window, $routeParams, BudgetF
         console.log("the budget name should come through", budgetName);
         $scope.newExpenseItem.categoryName = budgetName;
         BudgetFactory.newExpenseItem($scope.newExpenseItem).then(function() {
-          $scope.getBudgetList();
-          $scope.getExpenseList();
+          BudgetFactory.getSingleBudgetItem($scope.newExpenseItem.categoryId).then(function(budgetObj) {
+            budgetObj.currentAmountSpent = budgetObj.currentAmountSpent + $scope.newExpenseItem.amount
+            BudgetFactory.updateBudgetItem($scope.newExpenseItem.categoryId, budgetObj).then(function(newObj) {
+              $scope.getBudgetList();
+              $scope.getExpenseList();    
+            })
+          })
         });
       });
     };
