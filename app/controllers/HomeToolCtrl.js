@@ -13,10 +13,12 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
         }, {
             url: `#/budget/${$routeParams.homeid}`,
             name: "Budget"
-        }, {
-            url: `#/invite-housemate/${AuthFactory.getUid()}`,
-            name: "Invite Housemate"
-        }, {
+        },
+        // {
+        //     url: `#/invite-housemate/${AuthFactory.getUid()}`,
+        //     name: "Invite Housemate"
+        // },
+        {
             url: `#/messages/${AuthFactory.getUid()}`,
             name: "Messages"
         },
