@@ -27,12 +27,18 @@
         </thead>
 
         <tbody>
-          <tr ng-repeat="item in chores">
+          <tr ng-repeat="item in chores" ng-class="item.completed === true ? 'finished' : 'not_finished'">
             <td>{{item.assignedTo}}</td>
             <td>{{item.task}}</td>
             <td>{{item.dueDate}}</td>
-            <td><button ng-click="completedTask(item.id)">Finished?</button></td>
-            <td><button ng-click="deleteItem(item.id)">X</button></td>
+            <td>
+                <span ng-if="!item.completed">
+              <button class='btn' ng-click="completedTask(item.id)">Finished?</button></span>
+              <span ng-if="item.completed">
+                <i class="material-icons">check_circle</i>
+              </span>
+            </td>
+            <td><button class="btn" ng-click="deleteItem(item.id)">X</button></td>
           </tr>
         </tbody>
       </table>

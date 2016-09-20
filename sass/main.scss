@@ -10,9 +10,9 @@
      color: black;
   }
 
-.completed {
-  text-decoration: line-through;
+.finished {
   font-weight: 900;
+  background-color: #009688;
 }
 .not_completed {
   font-weight: 400;
