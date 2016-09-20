@@ -1,25 +1,52 @@
 <div ng-init="getGroceryList()">
-  <h4>Grocery List</h4>
-  <button class="btn" ng-click="addGrocery=true">Add Groceries</button>
-  <div ng-show="addGrocery">
-    <input type="text" placeholder="item name"  ng-model='newGroceryItem.name'/>
-    <button class="btn" ng-click="addGroceryItem()">Submit Item</button>
-  </div>
-  <div>
-    <ul ng-repeat="item in groceryList">
-      <li>
-        {{item.name}} <button ng-click="buyGroceryItem(item.id)">purchased</button> <button ng-click="deleteItem(item.id)">X</button>
-      </li>
-    </ul>
-  </div>
-</div>
-<div>
-  <h4>Current Groceries</h4>
-  <div>
-    <ul ng-repeat="item in purchasedList">
-      <li>
-        {{item.name}} <button ng-click="buyGroceryItem(item.id)">purchased</button> <button ng-click="deleteItem(item.id)">X</button>
-      </li>
-    </ul>
+  <div class="container">
+    <div class="row">
+      <div class="col s6">
+        <div ng-show="addGrocery">
+          <input type="text" placeholder="item name"  ng-model='newGroceryItem.name'/>
+          <button class="btn" ng-click="addGroceryItem()">Submit Item</button>
+        </div>
+        <div>
+          <table>
+        <thead>
+          <tr>
+              <th data-field="name"></th>
+              <th data-field="id">Grocery List<button class="btn groceryBtn" ng-click="addGrocery=true"><i class="material-icons">add_shopping_cart</i></button></th>
+              <th data-field="price"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr ng-repeat="item in groceryList">
+            <td>  {{item.name}}</td>
+            <td><button class="btn" ng-click="buyGroceryItem(item.id)"><i class="material-icons">done</i></button></td>
+            <td><button class="btn" ng-click="deleteItem(item.id)">X</button></td>
+          </tr>
+        </tbody>
+      </table>
+        </div>
+
+      </div>
+      <div class="col s6">
+        <table>
+      <thead>
+        <tr>
+            <th data-field="name"></th>
+            <th data-field="id">Owned Items</th>
+            <th data-field="price"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in purchasedList">
+          <td>  {{item.name}}</td>
+          <td><button class="btn" ng-click="buyGroceryItem(item.id)"><i class="material-icons">done</i></button></td>
+          <td><button class="btn" ng-click="deleteItem(item.id)">X</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+      </div>
+
+    </div>
   </div>
 </div>
