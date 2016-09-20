@@ -1,3 +1,15 @@
+[ng\: cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x- ng-cloak {
+   display: none !important;
+ }
+
+.loginBox {
+    margin: 20rem;
+  }
+
+  input[placeholder], [placeholder], *[placeholder] {
+     color: black;
+  }
+
 .completed {
   text-decoration: line-through;
   font-weight: 900;
@@ -11,7 +23,7 @@
 }
 
 .landingPage {
-  border: 3px solid black;
+
 }
 
 .active {
@@ -23,4 +35,8 @@
 }
 .navItem {
   color: black;
+}
+
+.toolBtn {
+  margin-top: 1rem;
 }

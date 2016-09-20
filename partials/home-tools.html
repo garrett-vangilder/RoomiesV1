@@ -1,7 +1,40 @@
-<div>
-  <h4>Welcome to your Home Tool's page.</h4>
-  <div ng-repeat="button in homeTools">
+<div class="container" ng-init="getUserInfo()" ng-cloak>
+    <h2>Welcome Home
+        {{userInfo.firstName}}</h2>
+    <div class="row">
+        <div class="col s6">
+            <h4>Profile
+                <button class="btn small" ng-click="isEdit='true'">edit</button>
+            </h4>
+            <div ng-show="!isEdit">
+                <h5>{{userHomeInfo.streetAddress}}
+                    {{userHomeInfo.city}},
+                    {{userHomeInfo.state}}
+                    {{userHomeInfo.zipCode}}</h5>
+                <h5>House Members
+                    {{roommateNameList.length}}</h5>
+                <span ng-repeat="name in roommateNameList">
+                    {{name}}
+                </span>
+            </div>
+            <div ng-show="isEdit">
+                <input ng-model="home.streetAddress" placeholder="{{userHomeInfo.streetAddress}}"/>
+                <input ng-model="home.city" placeholder="{{userHomeInfo.city}}"/>
+                <input ng-model="home.state" placeholder="{{userHomeInfo.state}}"/>
+                <input ng-model="home.zipCode" placeholder="{{userHomeInfo.zipCode}}"/>
+                <button class="btn" ng-click="updateHome()">Save</button>
+            </div>
 
-    <a ng-href='{{button.url}}'><button class="btn">{{button.name}}</button></a>
-  </div>
+        </div>
+        <div class="col s6">
+            <h4 class="center-align">Home Tools</h4>
+            <div class="row">
+                <div ng-repeat="button in homeTools" class="col s6">
+                    <a class="" ng-href='{{button.url}}'>
+                        <button class="btn col s12 toolBtn">{{button.name}}</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
