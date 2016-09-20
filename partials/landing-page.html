@@ -1,7 +1,12 @@
 <div class="landingPage">
-  <h3>Welcome to Roomies</h3>
-  <h4>email: <input type="text" ng-model="account.email"</h4>
-  <h4>Password: <input type="text" ng-model="account.password" /> </h4>
-  <button ng-click="login()">Login</button>
-  <a ng-href="#/registeruser">Not a Registered user? Do so here.</a>
+  <div ng-show="!isLoggedIn">
+    <h3>Welcome to Roomies</h3>
+    <h4>email: <input type="text" ng-model="account.email"</h4>
+    <h4>Password: <input type="text" ng-model="account.password" /> </h4>
+    <button ng-click="login()">Login</button>
+    <a ng-href="#/registeruser">Not a Registered user? Do so here.</a>
+  </div>
+  <div ng-show="isLoggedIn">
+    <h4>Welcome to Roomies!</h4>
+  </div>
 </div>
