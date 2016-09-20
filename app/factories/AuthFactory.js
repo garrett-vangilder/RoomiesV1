@@ -8,6 +8,8 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
     let filteredUser = [];
     let filteredHome = '';
     let filteredName = '';
+    let initialized = false;
+    let loggedInUser = null
 
     firebase.auth().onAuthStateChanged(function(user) {
         _uid = user.uid;
@@ -60,40 +62,40 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
     };
 
     let getUsersFirstName = (userId) => {
-      return $q((resolve, reject) => {
-        $http.get(`${FirebaseURL}/users.json?orderBy="uid"&equalTo="${userId}"`)
-        .success((obj) => {
-          Object.keys(obj).forEach((key) => {
-            obj[key].id = key;
-            singleUser.push(obj[key]);
-          });
-          filteredUser = filterArrayByID(singleUser, "id", userId);
-          filteredName = filteredUser[0].firstName;
-          resolve(filteredName);
-        })
-        .error((error) => {
-          reject(error);
+        return $q((resolve, reject) => {
+            $http.get(`${FirebaseURL}/users.json?orderBy="uid"&equalTo="${userId}"`)
+                .success((obj) => {
+                    Object.keys(obj).forEach((key) => {
+                        obj[key].id = key;
+                        singleUser.push(obj[key]);
+                    });
+                    filteredUser = filterArrayByID(singleUser, "id", userId);
+                    filteredName = filteredUser[0].firstName;
+                    resolve(filteredName);
+                })
+                .error((error) => {
+                    reject(error);
+                });
         });
-      });
     };
 
     let getUsersHomeId = (userId) => {
-      return $q((resolve, reject) => {
-        $http.get(`${FirebaseURL}/users.json?orderBy="uid"&equalTo="${userId}"`)
-        .success((obj) => {
-          Object.keys(obj).forEach((key) => {
-            obj[key].id = key;
-            singleUser.push(obj[key]);
-          });
-          filteredUser = filterArrayByID(singleUser, "id", userId);
-          filteredHome = filteredUser[0].homeid
-          console.log("should happen on login want to see what you get back", filteredHome);
-          resolve(filteredHome);
-        })
-        .error((error) => {
-          reject(error);
+        return $q((resolve, reject) => {
+            $http.get(`${FirebaseURL}/users.json?orderBy="uid"&equalTo="${userId}"`)
+                .success((obj) => {
+                    Object.keys(obj).forEach((key) => {
+                        obj[key].id = key;
+                        singleUser.push(obj[key]);
+                    });
+                    filteredUser = filterArrayByID(singleUser, "id", userId);
+                    filteredHome = filteredUser[0].homeid
+                    console.log("should happen on login want to see what you get back", filteredHome);
+                    resolve(filteredHome);
+                })
+                .error((error) => {
+                    reject(error);
+                });
         });
-      });
     };
 
 
@@ -105,7 +107,7 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
                         obj[key].id = key;
                         singleUser.push(obj[key]);
                     })
-                    filteredUser = filterArrayByID(singleUser,"id", userId)
+                    filteredUser = filterArrayByID(singleUser, "id", userId)
                     console.log('second filteredUser', filteredUser)
                     resolve(filteredUser);
                 })
@@ -156,6 +158,15 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
         return firebase.auth().signOut();
     };
 
+    let getUser = () => {
+        return loggedInUser;
+    }
+
+    let isAuthenticated = function() {
+
+      return (firebase.auth().currentUser) ? true: false;
+  };
+
     return {
         createUser,
         loginUser,
@@ -167,6 +178,8 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
         patchSingleUser,
         getSingleUserForLogin,
         getUsersFirstName,
-        getUsersHomeId
+        getUsersHomeId,
+        getUser,
+        isAuthenticated
     };
 });
