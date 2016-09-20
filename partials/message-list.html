@@ -1,22 +1,25 @@
-<div ng-init="getUserMessages()" >
-  <h4>Message's for User's Name </h4>
-  <div class="tableChat">
-    <div ng-repeat="message in messages|orderBy: 'postDate' ">
-      <div ng-class="{'active' : ( userIdx  == message.uid)}">
+<div ng-init="getUserMessages()" class="container">
+    <div class="center-align">
+        <div ng-repeat="message in messages|orderBy: 'postDate' ">
+            <div ng-switch ="userIdx  == message.uid">
+                <div ng-switch-when=true class="localMessage">
+                    <h5>
+                      {{message.contents}}
+                    </h5>
+                    <div class="right-align">You on {{message.postDate | date : "MMM d, y h:mm:ss a"}} </div>
+                </div>
+                <div ng-switch-default class="nonLocalMessage">
+                    <h5>
+                      {{message.contents}}
+                    </h5>
+                    <div class="left-align">{{message.authorName}} on {{message.postDate | date : "MMM d, y h:mm:ss a"}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="areaForInput">
+            <input ng-model='newMessage.contents' placeholder="what would you like to say?"/>
+            <button class="btn" ng-click="postNewMessage()">Submit</button>
 
-      <h4>{{message.authorName}}</h4>
-      <div>
-        {{message.contents}}
-        <p>
-          {{message.postDate | date : "MMM d, y h:mm:ss a"}}
-        </p>
-      </div>
+        </div>
     </div>
-
-    </div>
-    <div class="areaForInput">
-      <input ng-model='newMessage.contents' placeholder="what would you like to say?" /><button ng-click="postNewMessage()">Submit</button>
-
-    </div>
-  </div>
 </div>
