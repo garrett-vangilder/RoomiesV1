@@ -23,7 +23,7 @@
         <div ng-repeat="house in homeList">
             <h3>{{house.houseName}}</h3>
             <h3>{{house.streetAddress}}</h3>
-            <input placeholder="house password" ng-model="user.password" />
-            <button ng-click="confirmHomeSearch(house.homeid)">Confirm House</button>
+            <input placeholder="house password" ng-model="searchPassword.password" />
+            <button ng-click="confirmHomeSearch(house.homeid, searchPassword.password)">Confirm House</button>
         </div>
 </div>

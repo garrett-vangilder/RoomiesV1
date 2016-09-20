@@ -129,6 +129,10 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
 app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams, HomeFactory) {
     let _uid = AuthFactory.getUid();
 
+    $scope.searchPassword = {
+      "password": ""
+    };
+
     $scope.homeSearch = {
         "zipCode": ""
     };
@@ -141,22 +145,37 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
     };
 
 
-    $scope.confirmHomeSearch = function(homeId) {
-        let _uid = AuthFactory.getUid();
-        let user = AuthFactory.getSingleUser(_uid).then(function(user) {
-            user[0].homeid = homeId;
-            HomeFactory.getSingleHome(homeId).then(function(singleHomeObj) {
-                singleHomeObj.houseMemberUid.push(_uid);
-                HomeFactory.patchHomeItem(homeId, singleHomeObj).then(function(newHome) {});
+    $scope.confirmHomeSearch = function(homeId, password) {
+      let correctPassword = '';
+      let enteredPassword = password;
+        HomeFactory.getSingleHome(homeId).then(function(homeObj) {
+          console.log("homeObj", homeObj);
+          correctPassword = homeObj.password;
+          console.log("password needed", correctPassword);
+          if(correctPassword === enteredPassword) {
+            console.log('right password!')
+            let _uid = AuthFactory.getUid();
+            let user = AuthFactory.getSingleUser(_uid).then(function(user) {
+                user[0].homeid = homeId;
+                HomeFactory.getSingleHome(homeId).then(function(singleHomeObj) {
+                    singleHomeObj.houseMemberUid.push(_uid);
+                    HomeFactory.patchHomeItem(homeId, singleHomeObj).then(function(newHome) {});
+                });
+                AuthFactory.patchSingleUser(_uid, user[0]).then(function(newObj) {
+                    if (newObj) {
+                        $window.location.href = `#/home-tools/${newObj.homeid}`;
+                    } else {
+                        $window.location.href = `#/`;
+                    }
+                });
             });
-            AuthFactory.patchSingleUser(_uid, user[0]).then(function(newObj) {
-                if (newObj) {
-                    $window.location.href = `#/home-tools/${newObj.homeid}`;
-                } else {
-                    $window.location.href = `#/`;
-                }
-            });
-        });
+          } else {
+            console.log('wrong password')
+            console.log("correctPassword is", correctPassword)
+            console.log('$scope.searchPassword is ', enteredPassword);
+          };
+        })
+
     };
 
 });
