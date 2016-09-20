@@ -3,14 +3,21 @@
     <div class="row">
         <div class="col s6">
             <h4>Profile
-                <button class="btn small">edit</button>
+                <button class="btn small" ng-click="isEdit='true'">edit</button>
             </h4>
-            <div>
-                <h5>{{userHomeInfo.streetAddress}} {{userHomeInfo.city}}, {{userHomeInfo.state}}</h5>
+            <div ng-show="!isEdit">
+                <h5>{{userHomeInfo.streetAddress}} {{userHomeInfo.city}}, {{userHomeInfo.state}} {{userHomeInfo.zipCode}}</h5>
                 <h5>House Members {{roommateNameList.length}}</h5>
                 <span ng-repeat="name in roommateNameList">
                   {{name}}
                 </span>
+            </div>
+            <div ng-show="isEdit">
+                <input ng-model="home.streetAddress" placeholder="{{userHomeInfo.streetAddress}}" />
+                <input ng-model="home.city" placeholder="{{userHomeInfo.city}}" />
+                <input ng-model="home.state" placeholder="{{userHomeInfo.state}}" />
+                <input ng-model="home.zipCode" placeholder="{{userHomeInfo.zipCode}}" />
+                <button class="btn" ng-click="updateHome()">Save</button>
             </div>
 
         </div>

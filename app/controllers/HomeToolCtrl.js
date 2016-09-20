@@ -18,6 +18,8 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
     };
     $scope.roommateNameList = [];
 
+    $scope.home = {};
+
     $scope.getUserInfo = function() {
       console.log("working!")
       AuthFactory.getSingleUser(AuthFactory.getUid()).then(function(filteredUser) {
@@ -26,7 +28,6 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
         $scope.userInfo.homeId = filteredUser[0].homeid;
         $scope.userInfo.uid = filteredUser[0].uid;
         HomeFactory.getSingleHome($routeParams.homeid).then(function(obj) {
-          console.log("User's home", obj)
           $scope.userHomeInfo.name = obj.houseName;
           $scope.userHomeInfo.streetAddress = obj.streetAddress;
           $scope.userHomeInfo.city = obj.city;
@@ -34,34 +35,31 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
           $scope.userHomeInfo.zipCode = obj.zipCode;
           $scope.userHomeInfo.houseMembers = obj.houseMemberUid;
           let roommates = obj.houseMemberUid;
-          console.log("$scope.userHomeInfo.houseMembers", roommates)
           angular.forEach(obj.houseMemberUid, function(value) {
             AuthFactory.getUsersFirstName(value).then(function(filteredName) {
               $scope.roommateNameList.push(filteredName)
-              console.log("namelist?", $scope.roommateNameList)
             })
-            console.log("value from forEach loop", value)
           });
         });
       });
     };
 
-//     var app = angular.module('testModule', []);
-//
-// app.controller('testController', function($scope, $http){
-//    $http.get('Data/info.json').then(
-//       function(data){
-//          $scope.data = data;
-//       }
-//    );
-//
-//    angular.forEach($scope.data, function(value, key){
-//       if(value.Password == "thomasTheKing")
-//          console.log("username is thomas");
-//    });
-// });
-
-
+    $scope.updateHome = function() {
+      HomeFactory.getSingleHome($routeParams.homeid).then(function(obj) {
+        console.log('updateHome obj', obj)
+        obj.streetAddress = $scope.home.streetAddress;
+        obj.city = $scope.home.city;
+        obj.state = $scope.home.state;
+        HomeFactory.patchHomeItem(obj.homeid, obj).then(function(newObj) {
+          $scope.isEdit = false;
+          $scope.userHomeInfo.name = newObj.houseName;
+          $scope.userHomeInfo.streetAddress = newObj.streetAddress;
+          $scope.userHomeInfo.city = newObj.city;
+          $scope.userHomeInfo.state = newObj.state;
+          $scope.userHomeInfo.zipCode = newObj.zipCode;
+        })
+      })
+    }
 
     $scope.homeTools = [{
             url: `#/grocerylist/${$routeParams.homeid}`,
