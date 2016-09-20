@@ -59,6 +59,17 @@ app.controller("GroceryViewCtrl", function($scope, $window, GroceryFactory, $rou
         });
     };
 
+    $scope.spoiledItem = function(itemId) {
+      console.log(itemId)
+      GroceryFactory.getSingleGroceryItem(itemId).then(function(groceryObj) {
+        console.log(groceryObj);
+        groceryObj.spoiled = true;
+        GroceryFactory.patchGroceryItem(itemId, groceryObj).then(function() {
+            $scope.getGroceryList();
+        });
+      })
+    }
+
 
 
 

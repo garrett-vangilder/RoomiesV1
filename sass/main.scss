@@ -10,9 +10,9 @@
      color: black;
   }
 
-.completed {
-  text-decoration: line-through;
+.finished {
   font-weight: 900;
+  background-color: #009688;
 }
 .not_completed {
   font-weight: 400;
@@ -39,4 +39,11 @@
 
 .toolBtn {
   margin-top: 1rem;
+}
+
+.groceryBtn {
+  margin-left: 1rem;
+}
+.spoiled {
+  background-color: tomato;
 }
