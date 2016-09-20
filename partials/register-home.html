@@ -1,4 +1,3 @@
-<!-- <div class="container"> -->
 <div class="row">
 
     <div class="col s6 ">
@@ -14,21 +13,37 @@
             <input type="text" ng-model="homeItem.password"placeholder="Pass Code"/>
             <div class="center-align">
               <button class="btn waves-effect waves-light" ng-click="registerNewHome()">Register Home  <i class="material-icons right">send</i></button>
-
             </div>
     </div>
 
     <div class='col s6' ng-controller="SearchCtrl">
+      <div class="center-align">
         <i class="large material-icons">search</i>
         <h4>Search for Existing Home</h4>
+      </div>
+      <div class="center-align">
         <input type="text" ng-model="homeSearch.zipCode" placeholder="zip code"/>
-        <button ng-click="searchByZip(homeSearch.zipCode)">Search</button>
-        <div ng-repeat="house in homeList">
-            <h3>{{house.houseName}}</h3>
-            <h3>{{house.streetAddress}}</h3>
-            <input placeholder="house password" ng-model="searchPassword.password"/>
-            <button ng-click="confirmHomeSearch(house.homeid, searchPassword.password)">Confirm House</button>
+        <button class="btn" ng-click="searchByZip(homeSearch.zipCode)">Search </button>
+      </div>
+        <div class="col s12">
+    <h2 class="header center-align"></h2>
+    <div class="card horizontal" ng-repeat="house in homeList">
+
+      <div class="card-stacked">
+        <div class="card-content">
+          <h5 class="center-align">{{house.houseName}}</h5>
+          <div>
+            <p>{{house.streetAddress}}</p>
+            <p>{{house.city}}, {{house.state}}</p>
+          </div>
         </div>
+        <div class="card-action center-align ">
+          <input class="col s6" type="password" placeholder="Pass Code to Join the Home" />
+          <button class="btn col s5 offset-s1" ng-click="confirmHomeSearch(house.homeid, searchPassword.password)">Confirm House</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
     </div>
 </div>
-<!-- </div> -->
