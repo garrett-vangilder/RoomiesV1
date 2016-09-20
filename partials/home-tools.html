@@ -1,7 +1,27 @@
-<div>
-  <h4>Welcome to your Home Tool's page.</h4>
-  <div ng-repeat="button in homeTools">
+<div class="container" ng-init="getUserInfo()" ng-cloak>
+  <h2>Welcome Home {{userInfo.firstName}}</h2>
+    <div class="row">
+        <div class="col s6">
+            <h4>Profile
+                <button class="btn">edit</button>
+            </h4>
+            <div>
+                <h5>{{userHomeInfo.streetAddress}} {{userHomeInfo.city}}, {{userHomeInfo.state}}</h5>
+                <div ng-repeat="name in roommateNameList">
+                  <h5>{{name}}</h5>
+                </div>
+            </div>
 
-    <a ng-href='{{button.url}}'><button class="btn">{{button.name}}</button></a>
-  </div>
+        </div>
+        <div class="col s6">
+          <h4>Home Tools</h4>
+          <div class="row">
+            <div ng-repeat="button in homeTools" class="col s6">
+              <a class="" ng-href='{{button.url}}'>
+                <button class="btn">{{button.name}}</button>
+              </a>
+            </div>
+          </div>
+        </div>
+    </div>
 </div>
