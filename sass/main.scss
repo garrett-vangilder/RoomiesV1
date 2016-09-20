@@ -1,7 +1,7 @@
 [ng\: cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x- ng-cloak {
    display: none !important;
  }
- 
+
 .loginBox {
     margin: 20rem;
   }
@@ -35,4 +35,8 @@
 }
 .navItem {
   color: black;
+}
+
+.toolBtn {
+  margin-top: 1rem;
 }
