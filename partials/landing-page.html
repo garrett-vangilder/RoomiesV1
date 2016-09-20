@@ -1,40 +1,42 @@
 <div class="landingPage flow-text">
     <div ng-show="!isLoggedIn">
-            <h3 class="left-align">&nbsp;</h3>
-            <h3 class="left-align">Welcome to Roomies</h3>
-            <div class="center-align row">
-                <h5></h5>
-                <div class="col s4">
-                    <i class="large material-icons">chat_bubble</i>
-                    <h5>Communicate</h5>
-                    <p>
-                        We know you live a busy life. Live it to us to make communication simple and easy!
-                    </p>
-                </div>
-                <div class="col s4">
-                    <i class="large material-icons">insert_chart</i>
-                    <h5>Plan</h5>
-                    <p>
-                        Life is better when you know whats going on! Plan everyday chores on the fly with the people you love!
-                    </p>
-                </div>
-                <div class="col s4">
-                  <i class="large material-icons">weekend</i>
-                    <h5>Live</h5>
-                    <p>
-                      Spend more time doing the things that you want to be doing! Leave the heavy lifting up to us!
-                    </p>
-                </div>
+        <h3 class="left-align">&nbsp;</h3>
+        <h3 class="left-align">Welcome to Roomies</h3>
+        <div class="center-align row">
+            <h5></h5>
+            <div class="col s4">
+                <i class="large material-icons">chat_bubble</i>
+                <h5>Communicate</h5>
+                <p>
+                    We know you live a busy life. Live it to us to make communication simple and easy!
+                </p>
             </div>
-            <div class="row">
-              <img class="col s7 offset-s1" src="images/LaughingHipsters-Large.jpg" alt="laughing people" />
-              <div class="col s4 center-align">
-                <input type="text" placeholder="Email Address" ng-model="account.email" />
-                <input type="password" placeholder="Password" ng-model="account.password" />
+            <div class="col s4">
+                <i class="large material-icons">insert_chart</i>
+                <h5>Plan</h5>
+                <p>
+                    Life is better when you know whats going on! Plan everyday chores on the fly with the people you love!
+                </p>
+            </div>
+            <div class="col s4">
+                <i class="large material-icons">weekend</i>
+                <h5>Live</h5>
+                <p>
+                    Spend more time doing the things that you want to be doing! Leave the heavy lifting up to us!
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <img class="col s7 offset-s1" src="images/LaughingHipsters-Large.jpg" alt="laughing people"/>
+            <div class="col s4 center-align">
+                <input type="text" placeholder="Email Address" ng-model="account.email"/>
+                <input type="password" placeholder="Password" ng-model="account.password"/>
                 <button class="btn waves-effect waves-light" ng-click="login()">Login</button>
-                <a ng-href="#/registeruser"><button class="btn waves-effect waves-light" ng-click="login()">Register Here</button></a>
-              </div>
+                <a ng-href="#/registeruser">
+                    <button class="btn waves-effect waves-light" ng-click="login()">Register Here</button>
+                </a>
             </div>
+        </div>
 
     </div>
     <div ng-show="isLoggedIn">
