@@ -1,19 +1,14 @@
 <div class="navbar-fixed" ng-controller="NavBarCtrl">
     <nav class="#fafafa grey lighten-5">
         <div class="nav-wrapper">
-            <!-- <div class="">
-        <input type="text" placeholder="email address" />
-        <input type="text" placeholder="password" />
-        <button>Login</button>
-      </div> -->
             <a href="#!" class="brand-logo black-text ">Roomies</a>
             <ul class="right hide-on-med-and-down black-text ">
                 <span ng-repeat="item in navItems"><li class="navItem">
-                    <a ng-show="{{item.showState}}" href="{{item.url}}">{{item.name}}</a>
+                    <a class="navItem" ng-show="{{item.showState}}" ng-href="{{item.url}}">{{item.name}}</a>
                 </li>
                 </span>
-                <li ng-click="logout()" ng-show="$parent.isLoggedIn">
-                    <a ng-href="#">Logout</a>
+                <li ng-show="$parent.isLoggedIn" ng-click="logout()">
+                    <a class="navItem" ng-href="#">Logout</a>
                 </li>
 
             </ul>
