@@ -7,8 +7,12 @@
                     <a class="navItem" ng-show="{{item.showState}}" ng-href="{{item.url}}">{{item.name}}</a>
                 </li>
                 </span>
+                <li ng-show="$parent.isLoggedIn">
+                  <a class="navItem" ng-href="#/home-tools/{{homeId}}">Home Tools</a>
+                </li>
                 <li ng-show="$parent.isLoggedIn" ng-click="logout()">
                     <a class="navItem" ng-href="#">Logout</a>
+
                 </li>
 
             </ul>
