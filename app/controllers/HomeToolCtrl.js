@@ -58,6 +58,35 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
       })
     }
 
+    $scope.leaveHome = function() {
+      AuthFactory.getSingleUser(AuthFactory.getUid()).then(function(obj) {
+        console.log("what did you get?", obj)
+        let user = obj[obj.length - 1]
+        HomeFactory.getSingleHome(obj[obj.length - 1].homeid).then(function(homeobj) {
+          console.log('homeobj', homeobj);
+            let roommates = homeobj.houseMemberUid;
+          angular.forEach(roommates, function(value) {
+            console.log('value in the loop', value);
+            if (value === user.uid) {
+               let index = roommates.indexOf(value)
+               if (index > -1 ) {
+                 roommates.splice(index, 1)
+                 homeobj.houseMemberUid = roommates
+                console.log("does this work?", homeobj.houseMemberUid)
+                HomeFactory.patchHomeItem(homeobj.homeid, homeobj).then(function() {
+                  user.homeid = null;
+                  AuthFactory.patchSingleUser(user.id, user).then(function(obj2) {
+                    console.log("new user", obj2 )
+                    $window.location.href = "#registerhome";
+                  })
+                })
+               }
+            }
+          })
+        })
+      })
+    }
+
     $scope.homeTools = [{
             url: `#/grocerylist/${$routeParams.homeid}`,
             name: "Grocery List"
