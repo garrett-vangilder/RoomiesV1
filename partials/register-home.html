@@ -10,7 +10,7 @@
             <input type="text" ng-model="homeItem.city" placeholder="City"/>
             <input type="text" ng-model="homeItem.state" placeholder="State"/>
             <input type="text" ng-model="homeItem.zipCode" placeholder="Zip Code"/>
-            <input type="text" ng-model="homeItem.password"placeholder="Pass Code"/>
+            <input type="password" ng-model="homeItem.password"placeholder="Pass Code"/>
             <div class="center-align">
               <button ng-disabled="!homeItem.houseName || !homeItem.streetAddress || !homeItem.city || !homeItem.state || !homeItem.zipCode || !homeItem.password" class="btn waves-effect waves-light" ng-click="registerNewHome()">Register Home  <i class="material-icons right">send</i></button>
             </div>
