@@ -21,6 +21,13 @@ app.controller("MessageViewCtrl", function($scope, $window, $routeParams, Messag
                     }).then(function() {
                         MessageFactory.submitMessage($scope.newMessage).then(function() {
                             $scope.getUserMessages()
+                            $scope.newMessage = {
+                                "contents": "",
+                                "authorName": "",
+                                "houseId": "",
+                                "uid": _uid,
+                                "postDate": new Date()
+                            };
                         });
                     });
                 });
