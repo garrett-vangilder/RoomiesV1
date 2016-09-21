@@ -12,7 +12,7 @@
             <input type="text" ng-model="homeItem.zipCode" placeholder="Zip Code"/>
             <input type="text" ng-model="homeItem.password"placeholder="Pass Code"/>
             <div class="center-align">
-              <button  class="btn waves-effect waves-light" ng-click="registerNewHome()">Register Home  <i class="material-icons right">send</i></button>
+              <button ng-disabled="!homeItem.houseName || !homeItem.streetAddress || !homeItem.city || !homeItem.state || !homeItem.zipCode || !homeItem.password" class="btn waves-effect waves-light" ng-click="registerNewHome()">Register Home  <i class="material-icons right">send</i></button>
             </div>
     </div>
 
@@ -39,7 +39,7 @@
         </div>
         <div class="card-action center-align ">
           <input class="col s6" type="password" placeholder="Pass Code to Join the Home" ng-model="searchPassword.password" />
-          <button class="btn col s5 offset-s1" ng-click="confirmHomeSearch(house.homeid, searchPassword.password)">Confirm House</button>
+          <button ng-disabled="!searchPassword.password" class="btn col s5 offset-s1" ng-click="confirmHomeSearch(house.homeid, searchPassword.password)">Confirm House</button>
 
         </div>
       </div>
