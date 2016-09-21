@@ -35,6 +35,7 @@ app.controller("BudgetViewCtrl", function($scope, $window, $routeParams, BudgetF
         BudgetFactory.newBudgetItem($scope.newBudgetItem)
             .then(function() {
                 $scope.getBudgetList();
+                $scope.addingBudgetItem = false;
             })
     }
 
