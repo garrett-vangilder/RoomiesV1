@@ -1,4 +1,5 @@
 app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParams, HomeFactory) {
+  $scope.informationForRegistration = $scope.newUserObj == true;
     $scope.uid = '';
     $scope.newUserObj = {
         "firstName": "",
