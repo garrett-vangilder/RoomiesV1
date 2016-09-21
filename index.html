@@ -12,11 +12,11 @@
     </head>
     <body>
       <div ng-controller="TopCtrl">
-        <div ng-include="'partials/nav-bar.html'"></div>
+        <div ng-if="isLoggedIn" ng-include="'partials/nav-bar.html'"></div>
         <ng-view></ng-view>
         <div ng-include="'partials/footer.html'"></div>
         </div>
-  
+
 
         <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
