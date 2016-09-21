@@ -3,23 +3,23 @@
 
         <div class='center-align col s12'>
             <h4>Budget List</h4>
-            <button class="btn" ng-click="addingBudgetItem = true">Add Budget Item</button>
-            <button class="btn" ng-click="addingExpense = true">Add an Expense</button>
+            <button class="btn" ng-click="addingBudgetItem = true; addingExpense = false">Add Budget Item</button>
+            <button class="btn" ng-click="addingExpense = true; addingBudgetItem = false">Add an Expense</button>
             <div ng-show="addingBudgetItem">
-                <input ng-model="newBudgetItem.categoryName" placeholder="Spending Category"/>
-                <input ng-model="newBudgetItem.amount" placeholder="Amount"/>
-                <button class="btn" ng-click="addBudgetItem()">Submit</button>
+                <input type="text" ng-model="newBudgetItem.categoryName" placeholder="Spending Category"/>
+                <input type="number" min="0" ng-model="newBudgetItem.amount" placeholder="Amount"/>
+                <button ng-disabled="!newBudgetItem.categoryName || !newBudgetItem.amount" class="btn" ng-click="addBudgetItem()">Submit</button>
             </div>
             <div ng-show="addingExpense">
-                <input ng-model="newExpenseItem.paidTo" placeholder="Paid to whome?"/>
-                <input ng-model="newExpenseItem.amount" placeholder="Amount Paid"/>
-                <input ng-model="newExpenseItem.paidDate" placeholder="Date"/>
-                <input ng-model="newExpenseItem.notes" placeholder="Notes"/>
+                <input type="text" ng-model="newExpenseItem.paidTo" placeholder="To Who?"/>
+                <input type="number" ng-model="newExpenseItem.amount" placeholder="Amount Paid"/>
+                <input type="text" ng-model="newExpenseItem.paidDate" placeholder="Date"/>
+                <input type="text" ng-model="newExpenseItem.notes" placeholder="Notes"/>
                 <div ng-repeat="category in budgetItems">
                     <input ng-model="newExpenseItem.categoryId" value="{{category.id}}" name="group1" type="radio" id="{{category.id}}"/>
                     <label for="{{category.id}}">{{category.categoryName}}</label>
                 </div>
-                <button class="btn" ng-click="addExpenseItem()">Submit</button>
+                <button ng-disabled="!newExpenseItem.paidTo || !newExpenseItem.amount || !newExpenseItem.paidDate || !newExpenseItem.categoryId  " class="btn" ng-click="addExpenseItem()">Submit</button>
             </div>
         </div>
 
