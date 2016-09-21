@@ -43,11 +43,7 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
     };
 
     $scope.updateHome = function() {
-      HomeFactory.getSingleHome($routeParams.homeid).then(function(obj) {
-        obj.streetAddress = $scope.home.streetAddress;
-        obj.city = $scope.home.city;
-        obj.state = $scope.home.state;
-        HomeFactory.patchHomeItem(obj.homeid, obj).then(function(newObj) {
+        HomeFactory.patchHomeItem($routeParams.homeid, $scope.userHomeInfo).then(function(newObj) {
           $scope.isEdit = false;
           $scope.userHomeInfo.name = newObj.houseName;
           $scope.userHomeInfo.streetAddress = newObj.streetAddress;
@@ -55,7 +51,7 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
           $scope.userHomeInfo.state = newObj.state;
           $scope.userHomeInfo.zipCode = newObj.zipCode;
         })
-      })
+
     }
 
     $scope.leaveHome = function() {
