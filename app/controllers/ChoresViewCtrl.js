@@ -55,6 +55,8 @@ app.controller("ChoresViewCtrl", function($scope, $window, $routeParams, ChoresF
             angular.forEach(obj.houseMemberUid, function(value) {
                 AuthFactory.getUsersFirstName(value).then(function(filteredName) {
                     $scope.roommateList.push(filteredName)
+                    $scope.isLoaded= true;
+                    $scope.stopSpin();
                 })
             })
         })
