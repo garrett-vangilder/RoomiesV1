@@ -44,7 +44,8 @@
                         <tr>
                             <th data-field="name"></th>
                             <th data-field="id">Owned Items</th>
-                            <th data-field="price"></th>
+                            <th data-field="tools"></th>
+                            <th data-field="purchased"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,6 +63,9 @@
                             </td>
                             <td>
                                 <button class="btn" ng-click="deleteItem(item.id)">X</button>
+                            </td>
+                            <td>
+                              {{item.purchasedBy}}
                             </td>
                         </tr>
                     </tbody>
