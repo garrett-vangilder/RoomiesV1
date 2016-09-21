@@ -143,7 +143,7 @@ app.controller("BudgetViewCtrl", function($scope, $window, $routeParams, BudgetF
         BudgetFactory.getExpenseList(_homeid).then(function(filteredExpenseArray) {
             $scope.expenseItems = filteredExpenseArray;
             $scope.isLoaded=true
-            $scope.stopSpin()
+            $scope.stopSpin();
         });
     };
 
