@@ -74,14 +74,14 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
                  homeobj.houseMemberUid = roommates
                 console.log("does this work?", homeobj.houseMemberUid)
                 HomeFactory.patchHomeItem(homeobj.homeid, homeobj).then(function() {
-                  user.homeid = null;
-                  AuthFactory.patchSingleUser(user.id, user).then(function(obj2) {
-                    console.log("new user", obj2 )
-                    $window.location.href = "#registerhome";
-                  })
                 })
                }
             }
+          })
+          user.homeid = null;
+          AuthFactory.patchSingleUser(user.id, user).then(function(obj2) {
+            console.log("new user", obj2 )
+            $window.location.href = "#registerhome";
           })
         })
       })
