@@ -157,8 +157,14 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
             let user = AuthFactory.getSingleUser(_uid).then(function(user) {
                 user[0].homeid = homeId;
                 HomeFactory.getSingleHome(homeId).then(function(singleHomeObj) {
+                  if (singleHomeObj.houseMemberUid) {
                     singleHomeObj.houseMemberUid.push(_uid);
                     HomeFactory.patchHomeItem(homeId, singleHomeObj).then(function(newHome) {});
+
+                  } else {
+                    singleHomeObj.houseMemberUid = [_uid];
+                    HomeFactory.patchHomeItem(homeId, singleHomeObj).then(function(newHome) {});
+                  }
                 });
                 AuthFactory.patchSingleUser(_uid, user[0]).then(function(newObj) {
                     if (newObj) {
