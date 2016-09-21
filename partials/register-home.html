@@ -38,8 +38,8 @@
           </div>
         </div>
         <div class="card-action center-align ">
-          <input class="col s6" type="password" placeholder="Pass Code to Join the Home" ng-model="searchPassword.password" />
-          <button ng-disabled="!searchPassword.password" class="btn col s5 offset-s1" ng-click="confirmHomeSearch(house.homeid, searchPassword.password)">Confirm House</button>
+          <input class="col s6" type="password"  placeholder="Pass Code to Join the Home" ng-model="searchPassword.password[$index]"  />
+          <button ng-disabled="!searchPassword.password[$index]" class="btn col s5 offset-s1" ng-click="confirmHomeSearch(house.homeid, searchPassword.password[$index])">Confirm House</button>
 
         </div>
       </div>
