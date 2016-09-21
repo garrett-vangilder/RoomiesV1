@@ -16,6 +16,14 @@ app.controller("ChoresViewCtrl", function($scope, $window, $routeParams, ChoresF
         ChoresFactory.newChore($scope.newChoreItem)
             .then(function() {
                 $scope.getChoresList();
+                $scope.newChoreItem = {
+                    "task": "",
+                    "dueDate": "",
+                    "assignedTo": "",
+                    "uid": _uid,
+                    "houseId": _homeid,
+                    "completed": false
+                };
             });
     };
 
