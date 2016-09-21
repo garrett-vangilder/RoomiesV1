@@ -13,14 +13,13 @@ app.factory("ChoresFactory", function($q, $http, FBCreds, FirebaseURL) {
       }
     });
   };
-  
+
 
   let getChoresList = (houseId) => {
     let choresList = [];
     return $q( (resolve, reject) => {
       $http.get(`${FirebaseURL}/chores.json?orderBy="houseId"&equalTo="${houseId}"`)
       .success( (choresObj) => {
-        console.log("choresObj before loop", choresObj);
         Object.keys(choresObj).forEach( (key) => {
           choresObj[key].id = key;
           choresList.push(choresObj[key]);
@@ -37,7 +36,6 @@ app.factory("ChoresFactory", function($q, $http, FBCreds, FirebaseURL) {
 
   let getSingleChoreItem = (itemId) => {
     return $q( (resolve, reject) => {
-      console.log(itemId);
       $http.get(`${FirebaseURL}/chores/${itemId}.json`)
       .success( (choreObj) =>{
         resolve(choreObj)

@@ -41,7 +41,6 @@ app.factory("BudgetFactory", function($q, $http, FBCreds, FirebaseURL) {
       return $q( (resolve, reject) => {
         $http.get(`${FirebaseURL}/budget.json?orderBy="houseId"&equalTo="${houseId}"`)
         .success( (budgetObj) => {
-          console.log("this is the budgetObj", budgetObj)
           Object.keys(budgetObj).forEach( (key) => {
             budgetObj[key].id = key;
             budgetList.push(budgetObj[key]);
@@ -113,7 +112,6 @@ app.factory("BudgetFactory", function($q, $http, FBCreds, FirebaseURL) {
       return $q( (resolve, reject) => {
         $http.get(`${FirebaseURL}/expense.json?orderBy="houseId"&equalTo="${houseId}"`)
         .success( (expenseObj) => {
-          console.log("this is the expenseObj", expenseObj)
           Object.keys(expenseObj).forEach( (key) => {
             expenseObj[key].id = key;
             expenseList.push(expenseObj[key]);

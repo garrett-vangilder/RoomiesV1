@@ -8,7 +8,6 @@ app.factory("GroceryFactory", function($q, $http, FBCreds, FirebaseURL) {
     return $q( (resolve, reject) => {
       $http.get(`${FirebaseURL}/grocery.json?orderBy="houseId"&equalTo="${houseId}"`)
       .success( (groceryObj) => {
-        console.log("groceryObj before loop", groceryObj);
         Object.keys(groceryObj).forEach((key) => {
           groceryObj[key].id = key;
           groceryList.push(groceryObj[key]);

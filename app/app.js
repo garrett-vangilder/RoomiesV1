@@ -65,7 +65,6 @@ app.config(function($routeProvider) {
 });
 
 app.run(function($location, FBCreds) {
-    console.log("Run!?")
     let creds = FBCreds;
     let authConfig = {
         apiKey: creds.apiKey,

@@ -35,23 +35,19 @@ app.controller("GroceryViewCtrl", function($scope, $window, GroceryFactory, $rou
     $scope.getGroceryList = function() {
         GroceryFactory.getGroceryList(_homeid).then(function(filteredGroceryArray) {
             $scope.purchasedList =   GroceryFactory.filtergroceryList(filteredGroceryArray, 'purchased', true);
-            console.log("purchasedlist", $scope.purchasedList)
             $scope.groceryList = GroceryFactory.filtergroceryList(filteredGroceryArray, 'purchased', false);
         });
     };
 
     $scope.deleteItem = function(itemId) {
       GroceryFactory.deleteGroceryItem(itemId).then( function(groceryObj) {
-        console.log(groceryObj);
         $scope.getGroceryList();
 
       })
     };
 
     $scope.buyGroceryItem = function(itemId) {
-        console.log(itemId);
         GroceryFactory.getSingleGroceryItem(itemId).then(function(groceryObj) {
-            console.log(groceryObj);
             groceryObj.purchased = true;
             GroceryFactory.patchGroceryItem(itemId, groceryObj).then(function() {
                 $scope.getGroceryList();
@@ -60,9 +56,7 @@ app.controller("GroceryViewCtrl", function($scope, $window, GroceryFactory, $rou
     };
 
     $scope.spoiledItem = function(itemId) {
-      console.log(itemId)
       GroceryFactory.getSingleGroceryItem(itemId).then(function(groceryObj) {
-        console.log(groceryObj);
         groceryObj.spoiled = true;
         GroceryFactory.patchGroceryItem(itemId, groceryObj).then(function() {
             $scope.getGroceryList();

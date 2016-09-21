@@ -24,7 +24,6 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
     }
 
     let createUser = function(userObj) {
-        console.log('creating user via FB')
         return firebase.auth().createUserWithEmailAndPassword(userObj.email, userObj.password)
             .catch(function(error) {
                 let errorCode = error.code;
@@ -33,7 +32,6 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
     };
 
     let createUserFb = function(userObj) {
-        console.log("creating user via fake FB")
         return $q((resolve, reject) => {
             $http.post(`${FirebaseURL}/users.json`, userObj).then((uid) => {
                 resolve(uid);
@@ -89,7 +87,6 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
                     });
                     filteredUser = filterArrayByID(singleUser, "id", userId);
                     filteredHome = filteredUser[0].homeid
-                    console.log("should happen on login want to see what you get back", filteredHome);
                     resolve(filteredHome);
                 })
                 .error((error) => {
@@ -108,7 +105,6 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
                         singleUser.push(obj[key]);
                     })
                     filteredUser = filterArrayByID(singleUser, "id", userId)
-                    console.log('second filteredUser', filteredUser)
                     resolve(filteredUser);
                 })
                 .error((error) => {
@@ -128,7 +124,6 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
 
 
     let patchSingleUser = (itemId, obj) => {
-        console.log("patching single user")
         return $q((resolve, reject) => {
             $http.put(`${FirebaseURL}/users/${itemId}.json`, JSON.stringify(obj))
                 .success((ObjectFromFirebase) => {
@@ -144,7 +139,6 @@ app.factory("AuthFactory", function($q, $http, FirebaseURL) {
 
 
     let loginUser = function(userObj) {
-        console.log('logging in single user');
         return firebase.auth().signInWithEmailAndPassword(userObj.email, userObj.password)
             .catch(function(error) {
                 let errorCode = error.code;
