@@ -25,7 +25,7 @@
 
         <div class="col s6">
             <h4 class="center-align">Current Budget</h4>
-            <table>
+            <table ng-show="!isEdit">
                 <thead>
                     <tr>
                         <th data-field="id">Category Name</th>
@@ -45,39 +45,23 @@
                         <td>$
                             {{category.amount - category.currentAmountSpent}}</td>
                         <td>
-                            <button class='btn' ng-click="isEdit"><i class="material-icons">mode_edit</i></button>
+                            <button class='btn' ng-click="editMode(category.id);"><i class="material-icons">mode_edit</i></button>
                             <button class="btn" ng-click="deleteBudgetItem(category.id)"><i class="material-icons">delete</i></button>
                         </td>
-                        <tr ng-show="isEdit">
-                          <td>
-                            <input ng-model="selectedBudgetItem.categoryName" placeholder="{{category.categoryName}}"/>
-!
-                          </td>
-                        </tr>
                 </tbody>
             </table>
+
+            <div ng-show="isEdit" >
+              <h5>Edit</h5>
+              <input ng-model="selectedBudgetItem.categoryName" placeholder="{{selectedBudgetItem.categoryName}}" />
+             <input ng-model="selectedBudgetItem.amount" placeholder="{{selectedBudgetItem.amount}}" />
+             <button class="btn" ng-click="editBudgetItem(selectedBudgetItem.id)">Submit</button>
+            </div>
+
         </div>
         <div class="col s6" ng-init="getExpenseList()">
             <h4 class="center-align">This Month's Expenses</h4>
-            <div ng-repeat="expense in expenseItems">
-                <div>
-                    <div ng-if="isEditExpense">
-                        <input ng-model="selectedExpenseItem.paidTo" placeholder="{{expense.paidTo}}"/>
-                        <input ng-model="selectedExpenseItem.amount" placeholder="{{expense.amount}}"/>
-                        <input ng-model="selectedExpenseItem.paidDate" placeholder="{{expense.paidDate}}"/>
-                        <input ng-model="selectedExpenseItem.notes" placeholder="{{expense.notes}}"/>
-                        <button ng-click="editExpenseItem(expense.id)">Submit</button>
-                    </div>
-                    Paid to:{{expense.paidTo}}
-                    Amount:
-                    {{expense.amount}}
-                    Category:
-                    {{expense.categoryName}}
-                    <button ng-click="isEditExpense=true">Edit</button>
-                    <button ng-click="deleteExpenseItem(expense.id)">Delete</button>
-                </div>
-            </div>
-            <table>
+            <table ng-show="!isEditExpense">
               <thead>
                 <tr>
                     <th data-field="id">Expense</th>
@@ -96,16 +80,16 @@
                       <td>{{expense.paidDate}}</td>
                       <td>{{expense.notes}}</td>
                       <td>
-                          <button class='btn' ng-click="isEdit"><i class="material-icons">mode_edit</i></button>
-                          <button class="btn" ng-click="deleteBudgetItem(category.id)"><i class="material-icons">delete</i></button>
+                          <button class='btn' ng-click="editExpenseMode(expense.id)"><i class="material-icons">mode_edit</i></button>
+                          <button class="btn" ng-click="deleteExpenseItem(category.id)"><i class="material-icons">delete</i></button>
                       </td>
-                      
-                      <tr ng-show="isEdit">
-                        <td>
-                          <input ng-model="selectedBudgetItem.categoryName" placeholder="{{category.categoryName}}"/>
-!
-                        </td>
-                      </tr>
+                      <div ng-show="isEditExpense">
+                        <h5>Edit</h5>
+                        <input ng-model="selectedExpenseItem.paidTo" placeholder="{{selectedExpenseItem.paidTo}}" />
+                       <input ng-model="selectedExpenseItem.amount" placeholder="{{selectedExpenseItem.amount}}" />
+                       <input ng-model="selectedExpenseItem.notes" placeholder="{{selectedExpenseItem.notes}}" />
+                       <button class="btn" ng-click="editExpenseItem(selectedExpenseItem.id)">Submit</button>
+                      </div>
               </tbody>
             </table>
         </div>
