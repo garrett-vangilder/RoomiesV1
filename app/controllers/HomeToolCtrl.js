@@ -21,9 +21,7 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
     $scope.home = {};
 
     $scope.getUserInfo = function() {
-      console.log("working!")
       AuthFactory.getSingleUser(AuthFactory.getUid()).then(function(filteredUser) {
-        console.log("THis is given to the home tool page", filteredUser)
         $scope.userInfo.firstName = filteredUser[0].firstName;
         $scope.userInfo.homeId = filteredUser[0].homeid;
         $scope.userInfo.uid = filteredUser[0].uid;
@@ -46,7 +44,6 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
 
     $scope.updateHome = function() {
       HomeFactory.getSingleHome($routeParams.homeid).then(function(obj) {
-        console.log('updateHome obj', obj)
         obj.streetAddress = $scope.home.streetAddress;
         obj.city = $scope.home.city;
         obj.state = $scope.home.state;

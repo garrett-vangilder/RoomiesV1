@@ -10,11 +10,9 @@ app.controller("TopCtrl", function($scope, $location, $window, AuthFactory) {
     if (user) {
       currentUser = user.uid;
       $scope.isLoggedIn = true;
-      console.log("Current user logged in", user.uid)
       AuthFactory.getUsersHomeId(currentUser).then( function(filteredHome) {
         currentHouseid = filteredHome
         $scope.currentHouseid = filteredHome
-        console.log("currentHouseid is ", currentHouseid)
       })
     } else {
       currentUser = null;
@@ -35,7 +33,7 @@ app.controller("TopCtrl", function($scope, $location, $window, AuthFactory) {
   $scope.logout = function() {
     AuthFactory.logoutUser()
     .then(function(data) {
-      console.log("logged out", data);
+      $window.location.href="/"
     })
   }
 })

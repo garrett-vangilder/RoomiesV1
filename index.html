@@ -11,12 +11,19 @@
 
     </head>
     <body>
-      <div ng-controller="TopCtrl">
-        <div ng-include="'partials/nav-bar.html'"></div>
-        <ng-view></ng-view>
-        <div ng-include="'partials/footer.html'"></div>
+        <div id="wrapper">
+
+            <div ng-controller="TopCtrl">
+                <div id="header" ng-if="isLoggedIn" ng-include="'partials/nav-bar.html'"></div>
+                <main id="content">
+                    <ng-view></ng-view>
+                </main>
+                <footer>
+                        <div id="footer" ng-include="'partials/footer.html'"></div>
+                </footer>
+
+            </div>
         </div>
-  
 
         <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="lib/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

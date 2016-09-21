@@ -1,4 +1,5 @@
 app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParams, HomeFactory) {
+  $scope.informationForRegistration = $scope.newUserObj == true;
     $scope.uid = '';
     $scope.newUserObj = {
         "firstName": "",
@@ -149,11 +150,9 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
       let correctPassword = '';
       let enteredPassword = password;
         HomeFactory.getSingleHome(homeId).then(function(homeObj) {
-          console.log("homeObj", homeObj);
           correctPassword = homeObj.password;
           console.log("password needed", correctPassword);
           if(correctPassword === enteredPassword) {
-            console.log('right password!')
             let _uid = AuthFactory.getUid();
             let user = AuthFactory.getSingleUser(_uid).then(function(user) {
                 user[0].homeid = homeId;
@@ -171,8 +170,6 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
             });
           } else {
             console.log('wrong password')
-            console.log("correctPassword is", correctPassword)
-            console.log('$scope.searchPassword is ', enteredPassword);
           };
         })
 

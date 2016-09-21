@@ -19,7 +19,7 @@
         <input type="password" ng-model="account.password" placeholder="Password" ng-required="true"/>
         <input type="text" placeholder="First Name" ng-model="newUserObj.firstName" ng-required="true"/>
         <input type="text" placeholder="Last Name" ng-model="newUserObj.lastName" ng-required="true"/>
-        <button class="btn center-align" ng-model="newRegister" ng-click="registerUser()">Register</button>
+        <button ng-disabled="!account.email || !account.password || !newUserObj.firstName" class="btn center-align" ng-model="newRegister" ng-click="registerUser()">Register</button>
         <div class="center-align">
             <div>
                 <i class="small material-icons">info_outline</i>
@@ -27,7 +27,4 @@
             </div>
         </div>
     </div>
-</div>
-<div ng-show="goMore">
-    <button ng-click="createUserFb()">Submit</button>
 </div>

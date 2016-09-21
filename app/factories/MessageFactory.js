@@ -3,12 +3,10 @@
 app.factory("MessageFactory", function($q, $http, FBCreds, FirebaseURL) {
 
   let getList = (houseId) => {
-    console.log("getting list");
     let messageList = [];
     return $q( (resolve, reject) => {
       $http.get(`${FirebaseURL}/message.json?orderBy="houseId"&equalTo="${houseId}"`)
       .success( (messageObj) => {
-        console.log("messageObj before loop", messageObj);
         Object.keys(messageObj).forEach( (key) => {
           messageObj[key].id = key;
           messageList.push(messageObj[key]);

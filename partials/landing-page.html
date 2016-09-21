@@ -1,6 +1,5 @@
 <div class="landingPage flow-text">
     <div ng-show="!isLoggedIn">
-        <h3 class="left-align">&nbsp;</h3>
         <h3 class="left-align">Welcome to Roomies</h3>
         <div class="center-align row">
             <h5></h5>
@@ -31,7 +30,7 @@
             <div class="col s4 center-align">
                 <input type="text" placeholder="Email Address" ng-model="account.email"/>
                 <input type="password" placeholder="Password" ng-model="account.password"/>
-                <button class="btn waves-effect waves-light" ng-click="login()">Login</button>
+                <button ng-disabled="!account.email || !account.password" class="btn waves-effect waves-light" ng-click="login()">Login</button>
                 <a ng-href="#/registeruser">
                     <button class="btn waves-effect waves-light" ng-click="login()">Register Here</button>
                 </a>

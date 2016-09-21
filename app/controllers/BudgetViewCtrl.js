@@ -35,6 +35,7 @@ app.controller("BudgetViewCtrl", function($scope, $window, $routeParams, BudgetF
         BudgetFactory.newBudgetItem($scope.newBudgetItem)
             .then(function() {
                 $scope.getBudgetList();
+                $scope.addingBudgetItem = false;
             })
     }
 
@@ -70,6 +71,7 @@ app.controller("BudgetViewCtrl", function($scope, $window, $routeParams, BudgetF
                     BudgetFactory.updateBudgetItem($scope.newExpenseItem.categoryId, budgetObj).then(function(newObj) {
                         $scope.getBudgetList();
                         $scope.getExpenseList();
+                        $scope.addingExpense = false;
                     })
                 })
             });

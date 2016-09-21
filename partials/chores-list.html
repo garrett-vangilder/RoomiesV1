@@ -9,7 +9,7 @@
             <input ng-model="newChoreItem.assignedTo" value="{{roommate}}" name="group1" type="radio" id="{{roommate}}"/>
             <label for="{{roommate}}">{{roommate}}</label>
         </div>
-        <button class="btn" ng-click="addChoreItem()">Submit</button>
+        <button ng-disabled="!newChoreItem.task || !newChoreItem.dueDate || !newChoreItem.assignedTo" class="btn" ng-click="addChoreItem()">Submit</button>
         <h3>Add a New Task</h3>
       </div>
       <div class="col s8">

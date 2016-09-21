@@ -4,9 +4,9 @@
             <div class="col s6">
                 <div ng-show="addGrocery">
                     <input type="text" placeholder="item name" ng-model='newGroceryItem.name'/>
-                    <button class="btn" ng-click="addGroceryItem()">Submit Item</button>
+                    <button ng-disabled="!newGroceryItem.name" class="btn" ng-click="addGroceryItem()">Submit Item</button>
                 </div>
-                <div>
+                <div ng-show="!addGrocery">
                     <table>
                         <thead>
                             <tr>

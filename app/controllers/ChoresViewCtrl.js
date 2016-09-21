@@ -27,7 +27,6 @@ app.controller("ChoresViewCtrl", function($scope, $window, $routeParams, ChoresF
 
     $scope.completedTask = function(itemId) {
         ChoresFactory.getSingleChoreItem(itemId).then(function(choreObj) {
-            console.log(choreObj)
             choreObj.completed = true;
             ChoresFactory.patchChoreItem(itemId, choreObj).then(function() {
                 $scope.getChoresList();
@@ -37,7 +36,6 @@ app.controller("ChoresViewCtrl", function($scope, $window, $routeParams, ChoresF
 
     $scope.deleteItem = function(itemId) {
         ChoresFactory.deleteChoreItem(itemId).then(function(choreObj) {
-            console.log(choreObj);
             $scope.getChoresList();
 
         })
@@ -46,7 +44,6 @@ app.controller("ChoresViewCtrl", function($scope, $window, $routeParams, ChoresF
 
     $scope.getRoommateList = function() {
         HomeFactory.getSingleHome($routeParams.homeid).then(function(obj) {
-            console.log("obj", obj);
             angular.forEach(obj.houseMemberUid, function(value) {
                 AuthFactory.getUsersFirstName(value).then(function(filteredName) {
                     $scope.roommateList.push(filteredName)

@@ -5,13 +5,10 @@ app.controller("NavBarCtrl", function($scope, $location,  $window, $routeParams,
 
 
   firebase.auth().onAuthStateChanged(function(user) {
-    console.log('creating navbar')
     if (user) {
-      console.log("user", user);
       AuthFactory.getSingleUserForLogin(user.uid).then(function(obj) {
-        console.log(obj[0].homeid)
+        console.log('obj from when nav is being made', obj);
         $scope.homeId = obj[0].homeid;
-        console.log('homeId', $scope.homeId)
       })
       $scope.navItems = [{
         url: "#/registeruser",

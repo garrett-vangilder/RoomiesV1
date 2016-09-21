@@ -31,6 +31,9 @@ app.config(function($routeProvider) {
         controller: "HomeToolCtrl",
         resolve: {isAuth}
     }).
+    when("/home-tools/", {
+      redirectTo: '/registerhome'
+    }).
     when("/grocerylist/:homeid", {
         templateUrl: "partials/grocery-list.html",
         controller: "GroceryViewCtrl",
@@ -65,7 +68,6 @@ app.config(function($routeProvider) {
 });
 
 app.run(function($location, FBCreds) {
-    console.log("Run!?")
     let creds = FBCreds;
     let authConfig = {
         apiKey: creds.apiKey,
