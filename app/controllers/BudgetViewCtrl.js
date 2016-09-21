@@ -1,5 +1,6 @@
 app.controller("BudgetViewCtrl", function($scope, $window, $routeParams, BudgetFactory, HomeFactory, AuthFactory) {
     let _homeid = $routeParams.homeid;
+    $scope.isLoaded=false;
 
     $scope.newBudgetItem = {
         "categoryName": "",
@@ -141,6 +142,8 @@ app.controller("BudgetViewCtrl", function($scope, $window, $routeParams, BudgetF
     $scope.getExpenseList = function() {
         BudgetFactory.getExpenseList(_homeid).then(function(filteredExpenseArray) {
             $scope.expenseItems = filteredExpenseArray;
+            $scope.isLoaded=true
+            $scope.stopSpin()
         });
     };
 

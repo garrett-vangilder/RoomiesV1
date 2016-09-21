@@ -1,5 +1,6 @@
-<div ng-init="getGroceryList()">
-    <div class="container">
+<span us-spinner spinner-key="spinner-1" spinner-start-active="true"></span>
+<div ng-init="getGroceryList()" ng-show="isLoaded">
+    <div ng-init="startSpin()" class="container">
         <div class="row">
             <div class="col s6">
                 <div ng-show="addGrocery">

@@ -1,10 +1,17 @@
 "use strict";
 
-app.controller("TopCtrl", function($scope, $location, $window, AuthFactory) {
+app.controller("TopCtrl", function($scope, $location, $window, AuthFactory, usSpinnerService) {
   $scope.isLoggedIn = false;
   let currentUser = null;
   let currentHouseid = null
   $scope.currentHouseid = null
+
+  $scope.startSpin = function() {
+      usSpinnerService.spin('spinner-1');
+  }
+  $scope.stopSpin = function() {
+      usSpinnerService.stop('spinner-1');
+  }
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {

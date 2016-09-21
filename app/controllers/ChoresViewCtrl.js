@@ -16,6 +16,14 @@ app.controller("ChoresViewCtrl", function($scope, $window, $routeParams, ChoresF
         ChoresFactory.newChore($scope.newChoreItem)
             .then(function() {
                 $scope.getChoresList();
+                $scope.newChoreItem = {
+                    "task": "",
+                    "dueDate": "",
+                    "assignedTo": "",
+                    "uid": _uid,
+                    "houseId": _homeid,
+                    "completed": false
+                };
             });
     };
 
@@ -47,6 +55,8 @@ app.controller("ChoresViewCtrl", function($scope, $window, $routeParams, ChoresF
             angular.forEach(obj.houseMemberUid, function(value) {
                 AuthFactory.getUsersFirstName(value).then(function(filteredName) {
                     $scope.roommateList.push(filteredName)
+                    $scope.isLoaded= true;
+                    $scope.stopSpin();
                 })
             })
         })

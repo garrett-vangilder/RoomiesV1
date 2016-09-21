@@ -1,11 +1,15 @@
-<div class="container" ng-init="getUserInfo()" ng-cloak>
-    <h2>Welcome Home
+  <span us-spinner spinner-key="spinner-1" spinner-start-active="true"></span>
+  <div class="container" ng-init="startSpin()" ng-show="isLoaded">
+
+    <h2 ng-init="getUserInfo()">Welcome Home
         {{userInfo.firstName}}</h2>
+        <!-- <span us-spinner spinner-key="spinner-1"></span> -->
+        <!-- <span us-spinner></span> -->
+
     <div class="row">
         <div class="col s6">
-            <h4>Profile
-                <button class="btn small" ng-click="isEdit='true'">edit</button>
-            </h4>
+            <span><h4 style="display: inline-block;">Profile</h4>
+                <button class="btn small" ng-click="isEdit='true'">edit</button></span>
             <div ng-show="!isEdit">
                 <h5>{{userHomeInfo.streetAddress}}
                     {{userHomeInfo.city}},
@@ -18,10 +22,10 @@
                 </span>
             </div>
             <div ng-show="isEdit">
-                <input ng-model="home.streetAddress" placeholder="{{userHomeInfo.streetAddress}}"/>
-                <input ng-model="home.city" placeholder="{{userHomeInfo.city}}"/>
-                <input ng-model="home.state" placeholder="{{userHomeInfo.state}}"/>
-                <input ng-model="home.zipCode" placeholder="{{userHomeInfo.zipCode}}"/>
+                <input ng-model="userHomeInfo.streetAddress" placeholder="{{userHomeInfo.streetAddress}}"/>
+                <input ng-model="userHomeInfo.city" placeholder="{{userHomeInfo.city}}"/>
+                <input ng-model="userHomeInfo.state" placeholder="{{userHomeInfo.state}}"/>
+                <input ng-model="userHomeInfo.zipCode" placeholder="{{userHomeInfo.zipCode}}"/>
                 <button class="btn" ng-click="updateHome()">Save</button>
                 <button class="btn" ng-click="leaveHome()">Leave Home</button>
             </div>

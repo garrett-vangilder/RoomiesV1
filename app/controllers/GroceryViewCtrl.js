@@ -6,6 +6,7 @@ app.controller("GroceryViewCtrl", function($scope, $window, GroceryFactory, $rou
     let ownedGroceryList = []
     let groceryObj = {};
     let itemId = "";
+    $scope.isLoaded = false;
 
     $scope.newGroceryItem = {
         "name": "",
@@ -36,6 +37,8 @@ app.controller("GroceryViewCtrl", function($scope, $window, GroceryFactory, $rou
         GroceryFactory.getGroceryList(_homeid).then(function(filteredGroceryArray) {
             $scope.purchasedList =   GroceryFactory.filtergroceryList(filteredGroceryArray, 'purchased', true);
             $scope.groceryList = GroceryFactory.filtergroceryList(filteredGroceryArray, 'purchased', false);
+            $scope.stopSpin();
+            $scope.isLoaded = true;
         });
     };
 
