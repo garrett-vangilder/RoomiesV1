@@ -14,25 +14,7 @@
   font-weight: 900;
   background-color: #009688;
 }
-.not_completed {
-  font-weight: 400;
-}
 
-.fun {
-  color: tomato;
-}
-
-.landingPage {
-
-}
-
-.active {
-  border: 3px solid black;
-}
-
-.not_active {
-  font-weight: 400;
-}
 .navItem {
   color: black;
 }
@@ -46,4 +28,15 @@
 }
 .spoiled {
   background-color: tomato;
+}
+
+.nonLocalMessage {
+  background-color: lightgrey;
+  border-radius: 10px;
+}
+
+.localMessage {
+  background-color: #009688;
+  color: white;
+  border-radius: 10px;
 }
