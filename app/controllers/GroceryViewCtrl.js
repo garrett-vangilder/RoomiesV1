@@ -13,7 +13,8 @@ app.controller("GroceryViewCtrl", function($scope, $window, GroceryFactory, $rou
         "uid": _uid,
         "houseId": _homeid,
         "purchased": false,
-        "spoiled": false
+        "spoiled": false,
+        "purchasedBy": ""
     };
 
     $scope.selectedGroceryItem = {
@@ -29,13 +30,13 @@ app.controller("GroceryViewCtrl", function($scope, $window, GroceryFactory, $rou
             .then(function() {
                 $scope.getGroceryList();
                 $scope.newGroceryItem.name = "";
-                $scope.addGrocery= false;
+                $scope.addGrocery = false;
             });
     };
 
     $scope.getGroceryList = function() {
         GroceryFactory.getGroceryList(_homeid).then(function(filteredGroceryArray) {
-            $scope.purchasedList =   GroceryFactory.filtergroceryList(filteredGroceryArray, 'purchased', true);
+            $scope.purchasedList = GroceryFactory.filtergroceryList(filteredGroceryArray, 'purchased', true);
             $scope.groceryList = GroceryFactory.filtergroceryList(filteredGroceryArray, 'purchased', false);
             $scope.stopSpin();
             $scope.isLoaded = true;
@@ -43,28 +44,33 @@ app.controller("GroceryViewCtrl", function($scope, $window, GroceryFactory, $rou
     };
 
     $scope.deleteItem = function(itemId) {
-      GroceryFactory.deleteGroceryItem(itemId).then( function(groceryObj) {
-        $scope.getGroceryList();
+        GroceryFactory.deleteGroceryItem(itemId).then(function(groceryObj) {
+            $scope.getGroceryList();
 
-      })
+        })
     };
 
     $scope.buyGroceryItem = function(itemId) {
         GroceryFactory.getSingleGroceryItem(itemId).then(function(groceryObj) {
-            groceryObj.purchased = true;
-            GroceryFactory.patchGroceryItem(itemId, groceryObj).then(function() {
-                $scope.getGroceryList();
-            });
+            AuthFactory.getUsersFirstName(AuthFactory.getUid()).then(function(filteredName) {
+                console.log("filteredName", filteredName);
+                groceryObj.purchased = true;
+                groceryObj.purchasedBy = filteredName;
+                GroceryFactory.patchGroceryItem(itemId, groceryObj).then(function(groceryObj2) {
+                  console.log('purchasedBy', groceryObj2)
+                  $scope.getGroceryList();
+                })
+            })
         });
     };
 
     $scope.spoiledItem = function(itemId) {
-      GroceryFactory.getSingleGroceryItem(itemId).then(function(groceryObj) {
-        groceryObj.spoiled = true;
-        GroceryFactory.patchGroceryItem(itemId, groceryObj).then(function() {
-            $scope.getGroceryList();
-        });
-      })
+        GroceryFactory.getSingleGroceryItem(itemId).then(function(groceryObj) {
+            groceryObj.spoiled = true;
+            GroceryFactory.patchGroceryItem(itemId, groceryObj).then(function() {
+                $scope.getGroceryList();
+            });
+        })
     }
 
 
