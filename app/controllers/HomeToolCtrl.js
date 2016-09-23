@@ -2,6 +2,7 @@
 
 app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeFactory, $window, $location, usSpinnerService) {
     $scope.isLoaded = false;
+    $scope.homeId = "";
 
     $scope.userInfo = {
         firstName: "",
@@ -21,26 +22,59 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
     $scope.home = {};
 
     $scope.getUserInfo = function() {
+        console.log("getting user's info")
         AuthFactory.getSingleUser(AuthFactory.getUid()).then(function(filteredUser) {
-            $scope.userInfo.firstName = filteredUser[0].firstName;
-            $scope.userInfo.homeId = filteredUser[0].homeid;
-            $scope.userInfo.uid = filteredUser[0].uid;
-            HomeFactory.getSingleHome($routeParams.homeid).then(function(obj) {
-                $scope.userHomeInfo.name = obj.houseName;
-                $scope.userHomeInfo.streetAddress = obj.streetAddress;
-                $scope.userHomeInfo.city = obj.city;
-                $scope.userHomeInfo.state = obj.state;
-                $scope.userHomeInfo.zipCode = obj.zipCode;
-                $scope.userHomeInfo.houseMembers = obj.houseMemberUid;
-                let roommates = obj.houseMemberUid;
-                angular.forEach(obj.houseMemberUid, function(value) {
-                    AuthFactory.getUsersFirstName(value).then(function(filteredName) {
-                        $scope.roommateNameList.push(filteredName)
-                        $scope.stopSpin();
-                        $scope.isLoaded = true;
-                    })
+            console.log("filteredUser", filteredUser.length);
+            let number = filteredUser.length - 1
+            $scope.userInfo.firstName = filteredUser[number].firstName;
+            $scope.userInfo.homeId = filteredUser[number].homeid;
+            $scope.homeId = $scope.userInfo.homeId;
+            $scope.userInfo.uid = filteredUser[number].uid;
+            if ($scope.homeId === undefined) {
+                $window.location.href = "#registerhome";
+            } else {
+                console.log("home info!", $scope.userInfo.homeId)
+                HomeFactory.getSingleHome(filteredUser[number].homeid).then(function(obj) {
+                    $scope.userHomeInfo.name = obj.houseName;
+                    $scope.userHomeInfo.streetAddress = obj.streetAddress;
+                    $scope.userHomeInfo.city = obj.city;
+                    $scope.userHomeInfo.state = obj.state;
+                    $scope.userHomeInfo.zipCode = obj.zipCode;
+                    $scope.userHomeInfo.houseMembers = obj.houseMemberUid;
+                    let roommates = obj.houseMemberUid;
+                    console.log("roommate achieved", roommates)
+                    angular.forEach(obj.houseMemberUid, function(value) {
+                        AuthFactory.getUsersFirstName(value).then(function(filteredName) {
+                            $scope.roommateNameList.push(filteredName)
+                            $scope.stopSpin();
+                            $scope.isLoaded = true;
+                            $scope.homeTools = [{
+                                    url: `#/grocerylist/${$scope.homeId}`,
+                                    name: "Grocery List"
+                                }, {
+                                    url: `#/chores/${$scope.homeId}`,
+                                    name: "Chores"
+                                }, {
+                                    url: `#/budget/${$scope.homeId}`,
+                                    name: "Budget"
+                                },
+                                // {
+                                //     url: `#/invite-housemate/${AuthFactory.getUid()}`,
+                                //     name: "Invite Housemate"
+                                // },
+                                {
+                                    url: `#/messages/${AuthFactory.getUid()}`,
+                                    name: "Messages"
+                                }
+                                // {
+                                //     url: `#/info/${$routeParams.homeid}`,
+                                //     name: "Profile"
+                                // },
+                            ];
+                        })
+                    });
                 });
-            });
+            }
         });
     };
 
@@ -84,29 +118,7 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
         })
     }
 
-    $scope.homeTools = [{
-            url: `#/grocerylist/${$routeParams.homeid}`,
-            name: "Grocery List"
-        }, {
-            url: `#/chores/${$routeParams.homeid}`,
-            name: "Chores"
-        }, {
-            url: `#/budget/${$routeParams.homeid}`,
-            name: "Budget"
-        },
-        // {
-        //     url: `#/invite-housemate/${AuthFactory.getUid()}`,
-        //     name: "Invite Housemate"
-        // },
-        {
-            url: `#/messages/${AuthFactory.getUid()}`,
-            name: "Messages"
-        }
-        // {
-        //     url: `#/info/${$routeParams.homeid}`,
-        //     name: "Profile"
-        // },
-    ];
+
 
 
 });

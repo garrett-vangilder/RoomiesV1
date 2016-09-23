@@ -97,7 +97,7 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
             user[0].homeid = homeId;
             AuthFactory.patchSingleUser(userID, user[0]).then(function(newObj) {
                 if (newObj) {
-                    $window.location.href = `#/home-tools/${newObj.homeid}`;
+                    $window.location.href = `#/home-tools/`;
                 } else {
                     $window.location.href = `#/`;
                 }
@@ -105,19 +105,11 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
         });
     };
 
-
-
-
-
     $scope.login = () => {
         AuthFactory.loginUser($scope.account)
             .then((data) => {
                 if (data) {
-                    AuthFactory.getSingleUserForLogin(data.uid).then(function(filteredUser) {
-                        console.log(filteredUser[0].homeid, "filteredUser");
-                        let homeid = filteredUser[0].homeid;
-                        $window.location.href = `#/home-tools/${homeid}`;
-                    });
+                        $window.location.href = `#/home-tools/`;
                 } else {
                     $window.location.href = "#/";
                 }
@@ -145,7 +137,6 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
         });
     };
 
-
     $scope.confirmHomeSearch = function(homeId, password) {
       let correctPassword = '';
       let enteredPassword = password;
@@ -169,7 +160,7 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
                 AuthFactory.patchSingleUser(_uid, user[0]).then(function(newObj) {
                     if (newObj) {
                         firebase.auth()
-                        $window.location.href = `#/home-tools/${newObj.homeid}`;
+                        $window.location.href = `#/home-tools/`;
                     } else {
                         $window.location.href = `#/`;
                     }
