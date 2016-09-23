@@ -21,11 +21,15 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
     $scope.home = {};
 
     $scope.getUserInfo = function() {
+      console.log("getting user's info")
         AuthFactory.getSingleUser(AuthFactory.getUid()).then(function(filteredUser) {
-            $scope.userInfo.firstName = filteredUser[0].firstName;
-            $scope.userInfo.homeId = filteredUser[0].homeid;
-            $scope.userInfo.uid = filteredUser[0].uid;
-            HomeFactory.getSingleHome($routeParams.homeid).then(function(obj) {
+            console.log("filteredUser", filteredUser.length);
+            let number = filteredUser.length -1
+            $scope.userInfo.firstName = filteredUser[number].firstName;
+            $scope.userInfo.homeId = filteredUser[number].homeid;
+            $scope.userInfo.uid = filteredUser[number].uid;
+            console.log("home info!", $scope.userInfo.homeId )
+            HomeFactory.getSingleHome(filteredUser[number].homeid).then(function(obj) {
                 $scope.userHomeInfo.name = obj.houseName;
                 $scope.userHomeInfo.streetAddress = obj.streetAddress;
                 $scope.userHomeInfo.city = obj.city;
@@ -33,6 +37,7 @@ app.controller("HomeToolCtrl", function($scope, $routeParams, AuthFactory, HomeF
                 $scope.userHomeInfo.zipCode = obj.zipCode;
                 $scope.userHomeInfo.houseMembers = obj.houseMemberUid;
                 let roommates = obj.houseMemberUid;
+                console.log("roommate achieved", roommates)
                 angular.forEach(obj.houseMemberUid, function(value) {
                     AuthFactory.getUsersFirstName(value).then(function(filteredName) {
                         $scope.roommateNameList.push(filteredName)

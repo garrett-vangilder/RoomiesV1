@@ -113,11 +113,7 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
         AuthFactory.loginUser($scope.account)
             .then((data) => {
                 if (data) {
-                    AuthFactory.getSingleUserForLogin(data.uid).then(function(filteredUser) {
-                        console.log(filteredUser[0].homeid, "filteredUser");
-                        let homeid = filteredUser[0].homeid;
                         $window.location.href = `#/home-tools/`;
-                    });
                 } else {
                     $window.location.href = "#/";
                 }

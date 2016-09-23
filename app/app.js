@@ -31,9 +31,6 @@ app.config(function($routeProvider) {
         controller: "HomeToolCtrl",
         resolve: {isAuth}
     }).
-    when("/home-tools/", {
-      redirectTo: '/registerhome'
-    }).
     when("/grocerylist/:homeid", {
         templateUrl: "partials/grocery-list.html",
         controller: "GroceryViewCtrl",
