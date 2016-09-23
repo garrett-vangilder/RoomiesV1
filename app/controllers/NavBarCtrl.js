@@ -1,5 +1,5 @@
 app.controller("NavBarCtrl", function($scope, $location,  $window, $routeParams, AuthFactory) {
-  $scope.homeId = '';
+  $scope.homeId = $routeParams.homeid;
   let homeIdParams = $routeParams.homeid;
   let uid = $scope.getUser();
 

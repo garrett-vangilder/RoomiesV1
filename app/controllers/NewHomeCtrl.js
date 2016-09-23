@@ -168,6 +168,7 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
                 });
                 AuthFactory.patchSingleUser(_uid, user[0]).then(function(newObj) {
                     if (newObj) {
+                        firebase.auth()
                         $window.location.href = `#/home-tools/${newObj.homeid}`;
                     } else {
                         $window.location.href = `#/`;

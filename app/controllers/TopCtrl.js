@@ -14,6 +14,7 @@ app.controller("TopCtrl", function($scope, $location, $window, AuthFactory, usSp
   }
 
   firebase.auth().onAuthStateChanged(function(user) {
+    console.log("AuthStateChanged");
     if (user) {
       currentUser = user.uid;
       $scope.isLoggedIn = true;
