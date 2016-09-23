@@ -26,7 +26,7 @@ app.config(function($routeProvider) {
         templateUrl: "partials/register-user.html",
         controller: "NewHomeCtrl"
     }).
-    when("/home-tools/:homeid", {
+    when("/home-tools/", {
         templateUrl: "partials/home-tools.html",
         controller: "HomeToolCtrl",
         resolve: {isAuth}
