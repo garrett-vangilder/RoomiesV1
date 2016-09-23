@@ -97,17 +97,13 @@ app.controller("NewHomeCtrl", function($scope, $window, AuthFactory, $routeParam
             user[0].homeid = homeId;
             AuthFactory.patchSingleUser(userID, user[0]).then(function(newObj) {
                 if (newObj) {
-                    $window.location.href = `#/home-tools/${newObj.homeid}`;
+                    $window.location.href = `#/home-tools/`;
                 } else {
                     $window.location.href = `#/`;
                 }
             });
         });
     };
-
-
-
-
 
     $scope.login = () => {
         AuthFactory.loginUser($scope.account)
@@ -140,7 +136,6 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
             $scope.homeList = homeList;
         });
     };
-
 
     $scope.confirmHomeSearch = function(homeId, password) {
       let correctPassword = '';
