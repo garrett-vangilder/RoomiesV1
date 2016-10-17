@@ -1,14 +1,18 @@
-[ng\: cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x- ng-cloak {
-   display: none !important;
- }
+md-toast {
+z-index: 10000;
+}
+.md-fixed-top {
+position: fixed;
+top: 66px; // size of my navbar + 16px
+}
 
+.md-fixed-right {
+position: fixed;
+right: 16px;
+}
 
 .loginBox {
     margin: 20rem;
-  }
-
-  input[placeholder], [placeholder], *[placeholder] {
-     color: black;
   }
 
 .finished {

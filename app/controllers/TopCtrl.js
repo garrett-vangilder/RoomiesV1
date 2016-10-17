@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller("TopCtrl", function($scope, $location, $window, AuthFactory, usSpinnerService) {
+app.controller("TopCtrl", function($scope, $location, $window, AuthFactory, usSpinnerService, toastr ) {
   $scope.isLoggedIn = false;
   let currentUser = null;
   let currentHouseid = null
@@ -40,8 +40,12 @@ app.controller("TopCtrl", function($scope, $location, $window, AuthFactory, usSp
 
   $scope.logout = function() {
     AuthFactory.logoutUser()
+    // toastr.success('Goodbye!')
     .then(function(data) {
       $window.location.href="/"
+
     })
   }
+
+
 })

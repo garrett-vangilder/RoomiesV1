@@ -1,0 +1,47 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": true,
+    "grocery": {
+      ".indexOn": [
+        "uid",
+        "houseId"
+      ]
+    },
+    "chores": {
+      ".indexOn": [
+        "uid",
+        "houseId"
+      ]
+    },
+    "homes": {
+      ".indexOn": [
+        "zipCode",
+        "houseMemberUid"
+      ]
+    },
+    "users": {
+      ".indexOn": [
+        "uid"
+      ]
+    },
+    "message": {
+      ".indexOn": [
+        "uid",
+        "houseId"
+      ]
+    },
+    "budget": {
+      ".indexOn": [
+        "uid",
+        "houseId"
+      ]
+    },
+    "expense": {
+      ".indexOn": [
+        "uid",
+        "houseId"
+      ]
+    }
+  }
+}

@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module("Roomies", ["ngRoute", "angularSpinner"])
+var app = angular.module("Roomies", ["ngRoute", "angularSpinner", "toastr"])
     .constant("FirebaseURL", "https://roomies-39f08.firebaseio.com");
 
 let isAuth = (AuthFactory) => new Promise( (resolve, reject) => {
