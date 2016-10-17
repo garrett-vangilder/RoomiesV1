@@ -4,3 +4,4 @@ lib/bower_components
 lib/node_modules
 mock/
 app/values/
+deploy
