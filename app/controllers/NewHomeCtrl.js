@@ -142,7 +142,6 @@ app.controller("SearchCtrl", function($scope, $window, AuthFactory, $routeParams
       let enteredPassword = password;
         HomeFactory.getSingleHome(homeId).then(function(homeObj) {
           correctPassword = homeObj.password;
-          console.log("password needed", correctPassword);
           if(correctPassword === enteredPassword) {
             let _uid = AuthFactory.getUid();
             let user = AuthFactory.getSingleUser(_uid).then(function(user) {

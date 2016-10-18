@@ -20,7 +20,7 @@ app.config(function($routeProvider) {
     }).
     when("/registerhome", {
         templateUrl: "partials/register-home.html",
-        controller: "NewHomeCtrl",
+        controller: "NewHomeCtrl"
     }).
     when("/registeruser", {
         templateUrl: "partials/register-user.html",
