@@ -48,6 +48,24 @@ Once the user is completely registered for the application they are taken to the
 
  <kbd>![Chat](images/roomies-walkthrough/chatFeature.png)</kbd>
 
+ ### Grocery List
+
+ Another feature of this application allows for users to share a grocery list. Through the grocery list you can set several different states for each item such as: neet to buy, bought, and going bad. You can also delete add and edit items added to the grocery list or purchased list. 
+
+  <kbd>![Groceries](images/roomies-walkthrough/groceries.png)</kbd>
+
+ ### Chores List
+
+ Roomies allows for users to add to a home chore list. This chore list allows users to assign different tasks to roommates. Once again there are several different states given to each chore and users are able to edit, delete and complete chores.
+
+  <kbd>![Chores](images/roomies-walkthrough/chores.png)</kbd>
+
+  ### Adding a Budget item
+
+   Users can also create budget items for the home, where each user can communicate items purchased, bills paid, and expenses for the home.
+
+  <kbd>![Budget](images/roomies-walkthrough/budget.png)</kbd>
+  <kbd>![Budget2](images/roomies-walkthrough/budget2.png)</kbd>
 
 
 
