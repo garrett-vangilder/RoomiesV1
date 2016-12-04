@@ -2,6 +2,8 @@
 
 Hosted version here: [Roomies](https://roomies-39f08.firebaseapp.com/#/)
 
+Currently Working on: [Roomies 2.0](https://github.com/garrett-vangilder/roomiesV2)
+
 This application helps facilitate communication between roommates, allowing for roommates to organize groceries, bills, and events. 
 
 ## Technologies 
